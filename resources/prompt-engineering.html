@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>提示工程 / 上下文工程 — AI PM 学习中心</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .back { color: var(--accent); text-decoration: none; font-size:14px; display:inline-block; margin-bottom:24px; }
+    .badge { font-size:12px; padding:4px 12px; border-radius:20px; background:#1a2e1a; color:var(--green); border:1px solid #238636; display:inline-block; margin-bottom:16px; }
+    .original-link { background:#161b22; border:1px solid var(--border); border-radius:8px; padding:16px; margin:20px 0; }
+    .original-link a { color:var(--accent); font-size:15px; font-weight:500; }
+    .original-link p { font-size:13px; color:var(--text-secondary); margin-top:6px; }
+    .section { margin:32px 0; }
+    .section h2 { font-size:18px; font-weight:600; color:var(--purple); margin-bottom:12px; padding-left:12px; border-left:3px solid var(--purple); }
+    .tip { background:#1a1f2e; border:1px solid #30363d; border-radius:8px; padding:16px; margin:16px 0; font-size:14px; line-height:1.7; }
+    .tip strong { color:#ffa657; }
+  </style>
+</head>
+<body style="max-width:800px; margin:0 auto; padding:40px 24px;">
+
+  <a href="../index.html" class="back">← 返回学习中心</a>
+  <div class="badge">资源摘要页</div>
+  <h1 style="font-size:26px; font-weight:700; color:var(--text); margin-bottom:8px;">提示工程 / 上下文工程</h1>
+  <p style="color:var(--text-secondary); margin-bottom:32px;">AI PM 日常最核心的技能之一。以下是免费权威资源的中文精要。</p>
+
+  <div class="original-link">
+    <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview" target="_blank">📚 Anthropic 官方提示工程文档 →</a>
+    <p>最权威的提示工程指南，Claude 团队出品，持续更新。</p>
+  </div>
+
+  <div class="section">
+    <h2>什么是提示工程？</h2>
+    <p>提示工程（Prompt Engineering）是设计与大语言模型交互的输入文本，以获得期望输出的过程。对 AI PM 来说，不需要成为提示工程专家，但需要理解：</p>
+    <ul style="margin:12px 0 12px 24px; font-size:15px; line-height:1.8;">
+      <li>如何写出清晰、无歧义的指令</li>
+      <li>如何通过示例（few-shot）提升输出质量</li>
+      <li>如何让模型"一步步思考"（思维链 Chain-of-Thought）</li>
+      <li>如何利用 XML 标签结构化输入输出</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>上下文工程（Context Engineering）</h2>
+    <p>比提示工程更广义的概念。上下文工程是指：为每次模型调用提供正确上下文的所有工作，包括：</p>
+    <ul style="margin:12px 0 12px 24px; font-size:15px; line-height:1.8;">
+      <li>系统提示词（System Prompt）设计</li>
+      <li>对话历史管理（何时保留、何时截断）</li>
+      <li>RAG 系统中的检索结果注入</li>
+      <li>工具调用结果的处理与呈现</li>
+    </ul>
+    <div class="tip">
+      💡 <strong>PM 视角：</strong>上下文工程比提示工程更值得 AI PM 关注。因为产品中的 AI 表现，80% 取决于上下文的质量，而不是某个具体提示词的措辞。
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>免费学习资源</h2>
+    <div class="original-link">
+      <a href="https://github.com/anthropics/prompt-eng-interactive-tutorial" target="_blank">🎓 Anthropic 交互式提示工程教程（GitHub）→</a>
+      <p>带示例的互动教程，覆盖文档中所有提示技术。</p>
+    </div>
+    <div class="original-link">
+      <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/claude-prompting-best-practices" target="_blank">📋 Claude 提示最佳实践 →</a>
+      <p>针对 Claude 最新模型的调优指南。</p>
+    </div>
+    <div class="original-link">
+      <a href="https://cookbook.openai.com/examples/gpt4-1_prompting_guide" target="_blank">📋 OpenAI GPT-4.1 提示指南 →</a>
+      <p>聚焦智能体能力的提示工程指导。</p>
+    </div>
+  </div>
+
+  <div class="original-link" style="margin-top:40px;">
+    <a href="https://www.productcompass.pm/p/prompting-techniques" target="_blank">📖 Paweł Huryn：14 个 PM 应该知道的提示技术（原文，付费）→</a>
+    <p>如需访问完整版，需订阅 The Product Compass。</p>
+  </div>
+
+  <div style="margin-top:48px; padding-top:24px; border-top:1px solid var(--border); color:var(--text-secondary); font-size:13px; text-align:center;">
+    本文为资源摘要页，内容持续更新 · <a href="../index.html" style="color:var(--accent);">返回首页</a>
+  </div>
+
+</body>
+</html>

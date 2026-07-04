@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>在看完这个之前，先别急着投 AI 产品经理岗位</title>
+<style>
+  :root {
+    --bg: #1a1a2e;
+    --surface: #16213e;
+    --surface2: #0f3460;
+    --accent: #e94560;
+    --accent2: #533483;
+    --text: #e8e8e8;
+    --text-dim: #a0a0b0;
+    --border: #2a2a4a;
+    --code-bg: #0d1b2a;
+    --tag-bg: #1e2a4a;
+    --quote-bg: #1a1a3a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.8;
+    padding: 0;
+  }
+  .hero {
+    background: linear-gradient(135deg, var(--surface2) 0%, var(--accent2) 100%);
+    padding: 60px 40px;
+    text-align: center;
+    border-bottom: 3px solid var(--accent);
+  }
+  .hero h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 16px;
+    letter-spacing: 1px;
+  }
+  .hero .subtitle {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+  }
+  .meta-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  .meta-chip {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+  }
+  .meta-chip a { color: #7ab8ff; text-decoration: none; }
+  .meta-chip a:hover { text-decoration: underline; }
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+  .section {
+    margin-bottom: 48px;
+  }
+  .section-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title .icon { font-size: 1.3rem; }
+  .summary-box {
+    background: var(--surface);
+    border-radius: 12px;
+    padding: 28px;
+    border-left: 4px solid var(--accent);
+  }
+  .summary-box p { margin-bottom: 12px; }
+  .summary-box p:last-child { margin-bottom: 0; }
+  .takeaways ul, .keywords-list, .qa-list {
+    list-style: none;
+  }
+  .takeaways li {
+    background: var(--surface);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 10px;
+    border-left: 3px solid var(--accent2);
+    position: relative;
+    padding-left: 48px;
+  }
+  .takeaways li::before {
+    content: "▸";
+    position: absolute;
+    left: 20px;
+    color: var(--accent);
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+  .qa-item {
+    background: var(--surface);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 14px;
+  }
+  .qa-item .q {
+    font-weight: 700;
+    color: #7ab8ff;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+  }
+  .qa-item .q::before { content: "Q: "; color: var(--accent); font-weight: 800; }
+  .qa-item .a {
+    color: var(--text-dim);
+    font-size: 0.92rem;
+  }
+  .qa-item .a::before { content: "A: "; color: #5cb85c; font-weight: 700; }
+  .keyword-item {
+    background: var(--surface);
+    border-radius: 10px;
+    padding: 14px 20px;
+    margin-bottom: 10px;
+  }
+  .keyword-item .term {
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 0.95rem;
+  }
+  .keyword-item .def {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    margin-top: 4px;
+  }
+  .highlight-item {
+    background: var(--quote-bg);
+    border-left: 3px solid #e6a817;
+    padding: 12px 18px;
+    margin-bottom: 10px;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.92rem;
+  }
+  .highlight-item .time {
+    color: #e6a817;
+    font-weight: 600;
+    font-size: 0.8rem;
+    font-family: monospace;
+  }
+  .transcript-section {
+    margin-bottom: 32px;
+  }
+  .transcript-header {
+    background: linear-gradient(90deg, var(--surface2), transparent);
+    padding: 14px 20px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent2);
+  }
+  .transcript-header .ts-time {
+    color: #e6a817;
+    font-family: monospace;
+    font-size: 0.8rem;
+  }
+  .transcript-header .ts-title {
+    font-weight: 700;
+    color: #c8c8e0;
+    margin-top: 4px;
+    font-size: 1rem;
+  }
+  .transcript-header .ts-desc {
+    color: var(--text-dim);
+    font-size: 0.88rem;
+    margin-top: 6px;
+  }
+  .dialogue {
+    margin-bottom: 16px;
+    padding: 0 8px;
+  }
+  .speaker {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+  .speaker .time-tag {
+    color: var(--text-dim);
+    font-family: monospace;
+    font-size: 0.78rem;
+    background: var(--tag-bg);
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+  .speaker .name {
+    font-weight: 700;
+    font-size: 0.92rem;
+  }
+  .speaker .name.jyothi { color: #e94560; }
+  .speaker .name.aakash { color: #7ab8ff; }
+  .dialogue-text {
+    color: var(--text-dim);
+    padding-left: 12px;
+    font-size: 0.92rem;
+  }
+  .narrator {
+    color: #b0b0c8;
+    font-style: italic;
+    padding: 8px 12px;
+    font-size: 0.88rem;
+    border-left: 2px solid var(--border);
+    margin: 8px 0 8px 12px;
+  }
+  .footer {
+    text-align: center;
+    padding: 30px;
+    color: var(--text-dim);
+    font-size: 0.82rem;
+    border-top: 1px solid var(--border);
+  }
+  .toc {
+    background: var(--surface);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 40px;
+  }
+  .toc h3 {
+    color: var(--accent);
+    margin-bottom: 14px;
+    font-size: 1.05rem;
+  }
+  .toc ul { list-style: none; }
+  .toc li {
+    padding: 5px 0;
+    font-size: 0.9rem;
+  }
+  .toc a {
+    color: #7ab8ff;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .toc a:hover { color: var(--accent); }
+  .toc .num {
+    color: var(--accent);
+    font-weight: 700;
+    margin-right: 8px;
+  }
+  @media (max-width: 600px) {
+    .hero { padding: 40px 20px; }
+    .hero h1 { font-size: 1.4rem; }
+    .container { padding: 24px 16px 60px; }
+    .section-title { font-size: 1.15rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>在看完这个之前，先别急着投 AI 产品经理岗位</h1>
+  <div class="subtitle">AI 产品管理深度大师课 · 播客笔记完整中文翻译</div>
+  <div class="meta-bar">
+    <span class="meta-chip">播客：Aakash Gupta</span>
+    <span class="meta-chip">发布时间：2026-03-23</span>
+    <span class="meta-chip"><a href="https://podwise.ai/dashboard/episodes/7731609" target="_blank">原链接 ↗</a></span>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- 目录 -->
+<div class="toc">
+  <h3>📑 目录</h3>
+  <ul>
+    <li><span class="num">01</span><a href="#summary">内容摘要</a></li>
+    <li><span class="num">02</span><a href="#takeaways">核心要点</a></li>
+    <li><span class="num">03</span><a href="#qa">问答精选</a></li>
+    <li><span class="num">04</span><a href="#keywords">关键术语</a></li>
+    <li><span class="num">05</span><a href="#highlights">精彩金句</a></li>
+    <li><span class="num">06</span><a href="#transcript">完整对话逐字稿</a></li>
+  </ul>
+</div>
+
+<!-- 摘要 -->
+<div class="section" id="summary">
+  <div class="section-title"><span class="icon">📝</span> 内容摘要</div>
+  <div class="summary-box">
+    <p>本期播客深入探讨了 AI 产品管理的核心要义，区分了"在传统产品中添加 AI 功能"与"AI 原生产品管理"两种不同角色。嘉宾 Jyothi Nookula 曾在 Meta、Amazon 和 Netflix 担任 AI 产品经理，她为有志于成为 AI PM 的人勾勒了一条清晰的成长路线，强调理解 AI 基本原理、数据策略以及 AI 产品的概率性特征至关重要。</p>
+    <p>她将 AI PM 角色分为三个层次——应用层、平台层和基础设施层，并说明了各层对技术深度的不同要求。讨论涵盖了何时使用 AI 而非启发式规则、如何选择合适的 AI 技术（机器学习、深度学习、生成式 AI），以及 AI 智能体、提示工程、上下文工程和 RAG 系统等核心概念，并使用 N8n 和 Langflow 等工具进行了实操演示。</p>
+  </div>
+</div>
+
+<!-- 核心要点 -->
+<div class="section" id="takeaways">
+  <div class="section-title"><span class="icon">⭐</span> 核心要点</div>
+  <div class="takeaways">
+    <ul>
+      <li>AI 产品管理角色分为两类：在现有产品中添加 AI 功能的传统 PM（占 80%）和产品本身即为 AI 的 AI 原生 PM（占 20%）。</li>
+      <li>AI PM 角色沿技术栈分布：应用层 PM（60%）关注用户体验，平台层 PM（30%）为其他团队构建工具，基础设施层 PM（10%）构建底层 AI 系统。</li>
+      <li>区分 AI PM 与传统 PM 的核心技能在于：理解 AI 产品是概率性的，需要从"质量分布"和"可接受错误率"的角度来思考。</li>
+      <li>判断是否使用 AI 时，应考虑用例是否涉及复杂数据中的模式识别、基于历史数据预测未来结果，或大规模个性化体验。</li>
+      <li>选择 AI 技术时，应从传统 ML（结构化数据+预测任务）开始，再考虑深度学习（图像/视频等非结构化数据），最后才考虑生成式 AI（自然语言理解与生成）。</li>
+      <li>AI 智能体是目标导向系统，能自主决定如何实现目标；而工作流是预定义的任务序列。</li>
+      <li>提示工程通过设计提示词来告诉 AI 智能体做什么、如何表现，是用户与 AI 系统之间的主要接口。</li>
+      <li>上下文工程是"知道何时加载什么信息"的艺术，对管理 AI 模型的上下文窗口和降低成本至关重要。</li>
+      <li>检索增强生成（RAG）从知识库中检索信息，与用户输入合并后传给 LLM，使输出扎根于企业知识库。</li>
+      <li>在微调模型之前，应优先尝试提示优化、上下文工程和 RAG——RAG 能解决约 80% 的用例。</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 问答 -->
+<div class="section" id="qa">
+  <div class="section-title"><span class="icon">💬</span> 问答精选</div>
+  <div class="qa-list">
+
+    <div class="qa-item">
+      <div class="q">AI 产品经理与传统产品经理有什么区别？</div>
+      <div class="a">核心区别在于：传统 PM 的产品是确定性的，而 AI 产品是概率性的。传统产品行为可预测，AI 产品本质上具有概率性——相同的输入可能产生不同的输出。作为 AI PM，你必须从质量分布和可接受错误率的角度来思考，不再是简单的"成功 vs 失败"二分法。此外，数据现在是一等公民，你必须将数据视为产品体验来对待，因为差的数据会造成差的体验。</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="q">决定是否为产品或功能使用 AI 时，有哪些关键考虑因素？</div>
+      <div class="a">当存在复杂数据中的模式识别（模式太复杂，人类无法手动定义）时，AI 是合适的。当你拥有数年历史数据来预测未来结果时，AI 也表现出色。当你需要为成千上万甚至数百万用户大规模创建个性化体验时，AI 也很有价值。但在可解释性不可妥协、领域规则明确、数据有限或开发速度至关重要时，启发式或基于规则的方法就足够了。</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="q">如何为给定问题选择合适的 AI 技术？</div>
+      <div class="a">选择 AI 技术时考虑三大类：传统 ML、深度学习和生成式 AI。当你有结构化数据并需要预测或分类时选 ML；处理图像、视频或音频等感知任务，或模式过于复杂传统 ML 无法捕捉时用深度学习；当你需要理解、生成或推理自然语言或图像时用生成式 AI。它们不是竞争关系，而是工具箱中的工具，最好的 AI 产品通常结合多种方法。</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="q">AI 智能体的核心构建模块是什么？它们如何协同工作？</div>
+      <div class="a">AI 智能体的核心构建模块是感知、推理、执行和学习。感知是智能体接收信息的方式，如文本输入、图像或 API 连接。推理是智能体处理信息并做出决策的方式，使用 LLM 或分类模型等。执行是智能体影响环境的方式，可以是生成文本、调用 API 或控制硬件。学习是智能体评估结果并改进的反馈机制。</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="q">AI 智能体与简单工作流有什么区别？何时各用其一？</div>
+      <div class="a">工作流是预定义的任务序列，其中一切都被明确定义——流程如何走、如何执行。智能体则是目标导向系统，能够自主决定如何实现目标。工作流适用于可预测的模式和人定义的决策树，而智能体适用于需要独立决策和适应性的场景。</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="q">提示工程和上下文工程的关键方面是什么？为什么对 AI 智能体很重要？</div>
+      <div class="a">提示工程涉及设计提示词来告诉 AI 智能体做什么、如何表现以及期望什么结果。系统提示设定整体行为和个性，用户提示是用户的实际输入。上下文工程则是管理 AI 在上下文窗口约束下有效工作所需的一切信息，是一门"知道加载什么、何时加载"的艺术，需要在即时上下文、会话上下文和知识上下文之间取得平衡。</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="q">什么是检索增强生成（RAG）？为什么它对 AI 产品经理如此重要？</div>
+      <div class="a">RAG 从知识库中检索信息，与用户输入合并后传给 LLM，使 LLM 能够生成扎根于企业知识库的输出。它之所以重要，是因为无需微调就能解决许多问题。RAG 能根据提示动态检索正确信息并加载，对于内部部署 AI 的企业来说是必不可少的。</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="q">什么时候应该考虑微调模型，什么时候用 RAG？</div>
+      <div class="a">微调永远不应是你的第一选择，甚至不应该是第二选择。它应该在你穷尽了提示工程、上下文工程和 RAG 方法之后再考虑。实际的操作层级是：先做提示优化 → 优化上下文工程 → 实施 RAG → 如果这些都不够才考虑微调。大约 80% 的用例可以用 RAG 而非微调来解决。</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="q">成为 AI PM，做哪些实操项目最好？</div>
+      <div class="a">始终要从"做产品"而非"做项目"的角度出发。针对你自己的用例或痛点来构建，做完之后不要就此止步，要真正把它发布出去，让朋友和家人尝试使用。这样你突然就有了真实用户，你在做的事情就像一个真正的产品经理一样。这会给你把项目写进简历的信心。</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="q">证书对于成为 AI 产品经理有多重要？</div>
+      <div class="a">证书是向招聘人员和招聘经理发出信号的好方式，表明你学到的不仅是理论，而且是可信的、有认证的。你可以学习 AI 产品管理课程、做大量实操项目，然后考取 AWS AI 从业者证书。这给你一个可信的证书，告诉招聘经理这不仅仅是学过，还有权威认证。</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="q">Amazon/AWS、Meta 和 Netflix 的 AI PM 文化有什么不同？</div>
+      <div class="a">Amazon/AWS 是非常以客户为中心、以文档写作驱动的文化，一切从新闻稿（PR）和常见问题文档（FAQ）开始。Meta 注重实验和迭代，产品管理需要深度技术化。Netflix 的理念是"上下文优于控制"，你需要成为出色的沟通者，并习惯在模糊性中工作。</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="q">在 Amazon、Meta 和 Netflix 工作获得的关键技能和经验是什么？</div>
+      <div class="a">在 Amazon，我培养了文档写作和客户思维的严谨性。在 Meta，一切围绕"如何快速测试？实验文化是什么样的？"在 Netflix，我真正学到了自主权意味着什么、自主权的力量，以及建立共识、朝着共同愿景协作的共享体验。</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 关键术语 -->
+<div class="section" id="keywords">
+  <div class="section-title"><span class="icon">📖</span> 关键术语</div>
+  <div class="keywords-list">
+    <div class="keyword-item">
+      <div class="term">AI PM（AI 产品经理）</div>
+      <div class="def">负责指导 AI 驱动产品的战略、路线图和功能定义。该角色需要同时理解产品管理原则和 AI 技术。</div>
+    </div>
+    <div class="keyword-item">
+      <div class="term">LLM（大语言模型）</div>
+      <div class="def">在海量文本数据上训练的 AI 模型，能生成类人文本、翻译语言和回答问题。用于为现有产品添加 AI 功能，如聊天机器人或 AI 摘要。</div>
+    </div>
+    <div class="keyword-item">
+      <div class="term">AI 原生 PM</div>
+      <div class="def">一种新兴的 PM 角色类别，产品本身就是 AI，而不仅是一个功能。如 ChatGPT、GitHub Copilot、Perplexity——其价值主张如果没有 AI 则根本不可能实现。</div>
+    </div>
+    <div class="keyword-item">
+      <div class="term">应用层 PM</div>
+      <div class="def">关注 AI 应用端到端用户体验的 AI PM 角色。考虑用户如何与 AI 交互、建立信任并确保可靠性，是传统 PM 转型 AI PM 较容易的切入点。</div>
+    </div>
+    <div class="keyword-item">
+      <div class="term">平台层 PM</div>
+      <div class="def">为其他团队构建工具和平台以开发 AI 应用的 AI PM 角色。包括开发者平台、模型编排系统和评估框架，需理解技术基础设施和开发者体验。</div>
+    </div>
+    <div class="keyword-item">
+      <div class="term">基础设施 PM</div>
+      <div class="def">专注于构建 AI 产品底层系统的 AI PM 角色，如向量数据库和 GPU 编排，需要深厚的技术专业知识。</div>
+    </div>
+    <div class="keyword-item">
+      <div class="term">确定性 vs 概率性</div>
+      <div class="def">确定性产品行为可预测，相同输入始终产生相同输出。AI 产品是概率性的，相同输入可能产生不同输出，要求 AI PM 从质量分布和错误率角度思考。</div>
+    </div>
+    <div class="keyword-item">
+      <div class="term">AI 智能体（AI Agents）</div>
+      <div class="def">能够独立做出决策并采取行动以实现特定目标的系统，无需在每一步都接受明确指令。它们感知信息、推理、执行行动并从反馈中学习。</div>
+    </div>
+    <div class="keyword-item">
+      <div class="term">提示工程（Prompt Engineering）</div>
+      <div class="def">设计有效提示词来引导 AI 模型的过程，涉及系统提示（设定整体行为）和用户提示（用户输入）。少样本示例等技术用于向 AI 展示好的回答是什么样的。</div>
+    </div>
+    <div class="keyword-item">
+      <div class="term">上下文工程（Context Engineering）</div>
+      <div class="def">管理 AI 在上下文窗口约束下有效工作所需信息的实践。涉及平衡即时上下文、会话上下文和知识上下文，以优化性能和成本。</div>
+    </div>
+    <div class="keyword-item">
+      <div class="term">RAG（检索增强生成）</div>
+      <div class="def">从知识库中检索信息，与用户输入合并后传给语言模型的框架。使 LLM 能够生成扎根于企业特定知识的输出。</div>
+    </div>
+    <div class="keyword-item">
+      <div class="term">Langflow</div>
+      <div class="def">一种无代码工具，通过模块和连接来构建 RAG 系统，便于创建 AI 工作流。</div>
+    </div>
+    <div class="keyword-item">
+      <div class="term">N8n</div>
+      <div class="def">低代码/无代码平台，用于构建自动化工作流和 AI 智能体，允许用户连接不同的应用和服务。</div>
+    </div>
+    <div class="keyword-item">
+      <div class="term">PR/FAQ（新闻稿/常见问题）</div>
+      <div class="def">一种以文档为中心的产品开发方法，从新闻稿和 FAQ 开始定义客户问题和解决方案。</div>
+    </div>
+  </div>
+</div>
+
+<!-- 精彩金句 -->
+<div class="section" id="highlights">
+  <div class="section-title"><span class="icon">🔥</span> 精彩金句</div>
+  <div class="highlight-item">
+    <span class="time">(00:00:00)</span><br>在你真正理解 AI 基本原理之前，先别急着投 PM 岗位。
+  </div>
+  <div class="highlight-item">
+    <span class="time">(00:10:16)</span><br>AI 产品是概率性的。传统产品有可预测的行为，而 AI 产品本质上具有概率性。
+  </div>
+  <div class="highlight-item">
+    <span class="time">(00:11:33)</span><br>作为 AI PM，你必须将数据视为产品体验，因为差的数据会造成差的体验。在开始实施 AI 项目之前，拥有好的数据策略是前提。
+  </div>
+  <div class="highlight-item">
+    <span class="time">(00:13:40)</span><br>垃圾进，垃圾出。如果你的数据质量不高，模型输出也不会如你期望的那样接近现实。
+  </div>
+  <div class="highlight-item">
+    <span class="time">(00:15:51)</span><br>这似乎是常识，但并不那么常见——很多团队在选错问题去应用 AI。选择好的 AI 问题是困难的。
+  </div>
+  <div class="highlight-item">
+    <span class="time">(00:21:59)</span><br>它们不是竞争对手，而是你工具箱中的工具。最好的 AI 产品通常结合多种方法。
+  </div>
+  <div class="highlight-item">
+    <span class="time">(00:48:58)</span><br>当有人问"我应该微调模型吗？"我会说，不，先从 RAG 开始，因为 RAG 可能解决你 80% 的问题。
+  </div>
+  <div class="highlight-item">
+    <span class="time">(01:06:04)</span><br>在 Amazon 工作的第一件事，就是学会从客户痛点出发逆向思考。
+  </div>
+</div>
+
+<!-- 逐字稿 -->
+<div class="section" id="transcript">
+  <div class="section-title"><span class="icon">🎙️</span> 完整对话逐字稿</div>
+
+  <!-- Section 1 -->
+  <div class="transcript-section">
+    <div class="transcript-header">
+      <div class="ts-time">(00:00:00)</div>
+      <div class="ts-title">AI 产品管理：辨别炒作与现实，定义角色类型</div>
+      <div class="ts-desc">Jyothi 界定了 AI PM 角色的全景图，区分了在现有产品中添加 AI 功能的传统 PM（80%）和 AI 本身即核心产品的 AI 原生 PM（20%）。传统 PM 角色涉及在现有产品中添加聊天机器人或 AI 摘要等功能。AI 原生 PM 角色则专注于本质上是概率性的、没有 AI 就不可能存在的产品，如 ChatGPT 或 GitHub Copilot。她强调，在 AI 原生角色中，AI 不仅仅是在增强产品——它就是产品本身。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(00:00)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">在你真正理解 AI 基本原理之前，先别急着投 PM 岗位。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(00:05)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">AI 产品经理是扯淡，它到底是真实存在的还是只是炒作？</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(00:08)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">当我审视 AI PM 的行业全景时，有一些关键的区别是很多人忽略的。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(00:15)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">这位是 Jyothi Nookula。她曾在 Meta、Amazon 和 Netflix 担任 AI PM。她是世界上经验最丰富、资历最深的 AI PM 之一。Netflix 的 AI PM 总监听起来像是梦寐以求的工作，那你为什么离开了 Netflix？</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(00:27)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">在改变职业方向的意义上，外面有很多机会，随着 AI 岗位的增加，我想花时间全职投入到这个领域。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(00:36)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">成为 AI PM 的路线图是什么？</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(00:38)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">第一是理解 AI PM 与普通 PM 做的事情有什么区别。第二可以是……</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(00:47)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">今天的这集是 AI 产品管理的大师课。如果你只打算看一个视频，就是它了。我需要学习 RAG 和微调这些技术概念才能成为 AI PM 吗？</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(00:58)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">我会教你成为 AI PM 所需的一切，一切。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(01:02)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">面对这么多滚动式裁员，在 Meta 和 Amazon 这样的公司工作真的好吗？在我们继续之前，帮我个忙，确认你在 YouTube 上订阅了，在 Apple 和 Spotify 播客上关注了。如果你想获得超棒的 AI 工具，可以看看我的捆绑包——如果你成为我通讯的年度订阅者，可以免费获得 Mobbin、Arise、RelayApp、Dovetail、Linear、Magic Patterns、Deep Sky、Reforge Build、Descript 和 Speechify 付费计划的全年使用权。在 bundle.aakashg.com 查看。现在进入今天的节目。Jyothi，欢迎来到播客。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(01:45)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">谢谢，我非常兴奋能来到这里。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(01:48)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">我想从难题开始，好吗？你有 AI 产品经理这个头衔，但我一直听到说 AI 产品经理是扯淡。它到底是真实的还是炒作？</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(01:59)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">好的，让我给你一个数据驱动的答案。因为我两边都经历过——在 Meta、Netflix 和 Etsy 招聘 AI PM，现在又在和几十家公司聊他们的 AI 战略。当我审视 AI PM 的行业全景时，有一些关键的区别是很多人忽略的。我认为现有的角色类型是两方面的。一种是传统 PM 加上 AI 功能。这大概占目前标注为 AI PM 岗位的 80%。这些 PM 在引领 LLM 能力，将 AI 功能添加到现有产品中。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(02:59)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">比如你添加到客服门户的聊天机器人，或者在文档中添加 AI 摘要功能。核心产品在你添加或嫁接 LLM 之前就已经存在了。这就是传统 PM 加 AI 功能。另一种是 AI 原生 PM。我认为这是一个正在出现的新 PM 角色类别。大约 20% 是 AI 原生 PM 角色。在这里，产品就是 AI。它不是一个功能，不是你简单地嫁接到产品上的东西。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(03:46)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">想想你的 ChatGPT、GitHub Copilot、Claude、Cursor、Perplexity。关键特征是产品本质上是概率性的，价值主张没有 AI 就根本不可能实现。你不可能在没有 LLM 的情况下构建 ChatGPT。所以在 AI 原生角色中，AI 不仅仅是在增强产品——它就是产品。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(04:16)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">好的，两种不同类型，80% 在传统产品中，20% 在 AI 原生。也就是说传统公司的岗位数量是 4 倍。我们听说你工作过的一些公司，产品在 AI 之前就存在了，但你在其中负责 AI。如果有人想成为 AI PM，路线图是什么？</div>
+    </div>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="transcript-section">
+    <div class="transcript-header">
+      <div class="ts-time">(00:04:48)</div>
+      <div class="ts-title">AI 产品经理角色：应用层、平台层和基础设施层 PM</div>
+      <div class="ts-desc">Jyothi 概述了沿技术栈的三种 AI PM 角色：应用层 PM（60%）关注端到端用户体验和 AI 与人的交互。平台层 PM（30%）为开发应用产品的其他团队构建工具，需理解技术基础设施和开发者体验。基础设施层 PM（10%）构建向量数据库、GPU 编排等底层系统，要求深厚技术专业知识。越往栈的底层，需要的专业知识越深。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(04:38)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">在我进入路线图之前，我想先谈谈沿技术栈存在哪些类型的 AI PM 角色。在顶层，我称之为应用层 PM。这些 PM 负责端到端的用户体验。他们在思考用户如何与 AI 交互、如何建立信任、如何让 AI 足够可靠以供日常使用。他们需要理解 AI 人机界面和交互模式。这可能是传统 PM 转型 AI PM 最容易的方向，因为它包含了很多现有的产品管理技能加上 AI 知识。第二种是平台层 PM。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(05:33)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">这些 PM 构建其他团队用来开发应用产品的工具。比如开发者平台、模型编排系统、评估框架或可观测性工具。PM 需要同时理解技术基础设施和开发者体验。你不是直接为终端用户构建，而是为其他构建者构建。最后是基础设施 PM，这些 PM 构建驱动所有 AI 产品的底层系统，比如向量数据库、GPU 编排、内核级编译优化或模型服务优化。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(06:28)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">如你所见，越往栈的底层，需要的专业知识越深。所以越难。最容易的是应用层，从易到难排列。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(06:41)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">好的，这说得通。这三个类别中各自的大致比例是多少？</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(06:45)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">大约 60% 是应用层 PM，30% 是平台层 PM，大概 10% 是基础设施 PM。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(07:01)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">好的，说得通。最难的角色其实是最少的，算是好消息。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(07:05)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">是的。</div>
+    </div>
+  </div>
+
+  <!-- Section 3 -->
+  <div class="transcript-section">
+    <div class="transcript-header">
+      <div class="ts-time">(00:07:05)</div>
+      <div class="ts-title">AI 产品经理的关键概念：技术与必备技能</div>
+      <div class="ts-desc">Jyothi 确定了 AI PM 需要掌握的五项关键技术：理解 AI PM 与普通 PM 的区别、判断何时使用 AI、了解 AI 技术选项、掌握 AI 智能体和提示工程等核心概念，以及交付 AI 产品。她强调了知道何时对 AI 说不的重要性，指出 AI 产品是概率性的，需要 PM 从质量分布和可接受错误率的角度思考。数据是一等公民，好的数据策略是前提。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(07:05)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">那你能带我们走一遍吗？假设有人的目标仍然是基础设施层，需要知道哪些关键概念？</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(07:11)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">好的，无论是应用层、平台层还是基础设施层，关键概念是一样的。这就是我们今天要谈的五项技术。第一是理解 AI PM 与普通 PM 做的事情有什么区别。第二是判断何时使用 AI——因为现在有一种 AI 炒歌热潮，似乎每个人都想用 AI。但知道何时说是、何时说不是 PM 应该拥有的非常强大的技能。第三是我们来看 AI 技术有哪些，我们可以从什么菜单中选择。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(08:00)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">第四是如果我们确定要使用生成式 AI，我们就要学习关于 AI 智能体、提示工程、上下文、RAG、评估等核心概念。最后，我们将学习交付 AI 产品，一直到部署阶段。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(08:28)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">来吧。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(08:29)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">好的。什么是产品经理？产品经理本质上是产品的 CEO。PM 拥有产品及其相关决策权。产品经理要做的是平衡三个领域：UX、技术和业务。记住，所有这些职能 PM 都是在没有职权的情况下领导的。团队不向他们汇报。所以 PM 需要能够影响这些团队并做出艰难的决定。无论 AI PM 还是普通 PM，这都是 PM 的基线。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(09:10)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">当然，不同公司差异很大。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(09:13)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">绝对如此。好 PM 的特质包括：为团队定义清晰的愿景、以客户为中心（理解真正的痛点）、了解市场格局、与利益相关者就愿景达成一致、优先排序产品功能和能力（这是 PM 的看家本领），以及为团队创建"共享大脑"以支持独立决策。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(10:01)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">那么，区分 PM 和 AI PM 的核心技能是什么？核心区别在于——传统 PM 产品是确定性的，而 AI 产品是概率性的。传统产品有可预测的行为，AI 产品本质上具有概率性。也就是说，相同的输入可能产生不同的输出。如果传统产品中有一个按钮，我每次点击它都会打开下一个页面。但每次你问 AI 产品一个问题，因为它是概率性的，它可能产生不同的输出。所以作为 AI PM，你必须从质量分布、可接受错误率的角度来思考。</div>
+    </div>
+  </div>
+
+  <!-- Section 4 -->
+  <div class="transcript-section">
+    <div class="transcript-header">
+      <div class="ts-time">(00:11:41)</div>
+      <div class="ts-title">迭代式模型测试、可变的单位经济性与负责任 AI</div>
+      <div class="ts-desc">模型行为不是固定的而是迭代的，每次变更都需要重新测试。由于 AI 产品的概率性，单位经济性也是可变的。负责任 AI 和护栏至关重要，AI PM 需要处理潜在危害、偏见、误用和涌现行为。传统产品关注 Bug 和边缘情况，但 AI PM 需要处理模型中未显式编程的潜在危害、偏见、误用和涌现行为。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(10:56)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">这不再是成功与失败的二分法。作为 AI PM，你要回答这样的问题：用户能容忍的错误率是多少，在信任崩塌之前？我们如何处理可能只在 5% 的时间出现的边缘情况？我们是否需要一个确定性的回退系统？另一个不同之处是，数据现在是一等公民。传统 PM 可以专注于功能和用户流程，但作为 AI PM，你必须将数据视为产品体验，因为差的数据会造成差的体验。在开始实施 AI 项目之前，拥有好的数据策略是前提。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(11:50)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">希望你在享受今天的节目。你对成为 AI 产品经理感兴趣吗？想多赚几十万美元？加入 OpenAI 和 Anthropic？那你可能想做一门课程。我自己也学过——由 OpenAI 产品负责人 McDad Jaffer 主导的 AIPM 证书课程。如果你用我的代码和链接，可以获得特别折扣。我强烈推荐这门课程。我们还合作过很多 AI 产品策略方面的内容，可以看看我们的通讯文章来了解你将获得的思维质量。我的频繁合作者 Pavel Hern 是 Build Labs 的负责人。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(12:27)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">所以如果你参加这个 AIPM 证书课程，你将在 Pavel 的反馈下实操构建一个 AI 产品。务必用我的代码和链接来获得特别折扣。回到今天的节目。今天的节目由 Amplitude 赞助。移动用户参与度的回放对于构建更好的产品和体验至关重要。但很多会话回放工具并不能捕获完整画面……</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(13:05)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">Amplitude 的做法不同。他们的移动回放捕获完整体验——每一次点击、每一次滑动、每一个手势，没有延迟，没有性能损失。这是理解移动行为最准确的方式。用 Amplitude 看到完整故事。是的，数据这一块其实被低估了，因为人们听到数据就耸耸肩说"我懂基本统计"，但数据管道、数据如何被清洗、如何被放入其中、什么被用作训练数据——这里有很多细微之处需要人们意识到。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(13:39)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">是的。就像我常说的，垃圾进，垃圾出。如果你的数据质量不高，模型输出也不会如你期望的那样接近现实。同样，传统产品的模型行为是固定的——就是我之前说的按钮例子，每次点击紫色按钮都会导向类似的结果。而在这里，你需要与模型迭代。任何新变更，你都需要重新测试模型，理解模型行为的变化。这是一个非常迭代的过程。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(14:30)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">你的单位经济性也不同。传统产品有可预测的成本结构。而由于 AI 产品的概率性，AI 产品的单位经济性也是可变的。它取决于你的 LLM 给出答案的时间长短。最后，你现在需要更多地强调负责任 AI 和护栏——传统产品更容易关注 Bug 和边缘情况，但 AI PM 需要能够处理模型中未显式编程的潜在危害、偏见、误用和涌现行为。</div>
+    </div>
+  </div>
+
+  <!-- Section 5 -->
+  <div class="transcript-section">
+    <div class="transcript-header">
+      <div class="ts-time">(00:15:18)</div>
+      <div class="ts-title">何时使用 AI：模式识别、预测和个性化</div>
+      <div class="ts-desc">AI 适用于复杂数据中的模式识别、基于历史数据预测未来结果和大规模个性化体验。当模式太复杂人类无法手动定义时，AI 表现出色。当可解释性不可妥协、领域规则明确、数据有限或开发速度至关重要时，启发式方法就足够了。启发式是基于过去经验的简单规则集，税务计算软件就是基于规则实现的好例子。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(15:19)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">继续。既然我们理解了 AI PM 做什么，接下来看如何判断何时使用 AI、何时不使用？这是 MIT 的一份报告，很多人都看过。AI 试点失败的原因可能有很多，但论文指出的一个关键因素是：选择了正确的 AI 应用机会。这似乎是常识，但并不那么常见——很多团队在选错问题去应用 AI。选择好的 AI 问题是困难的。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(16:09)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">因为显然 20 个人中有 19 个选错了。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(16:13)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">绝对如此。以下这些情况适合使用 AI：当你有复杂数据中的模式识别——模式存在于数据中但太复杂，人类无法手动定义时。例如 YouTube 用机器学习来识别用户观看视频的模式，这是简单规则无法捕捉的。用户行为和内容偏好之间的关系是多维的，基于规则的系统无法捕获。所以模式识别是应用 AI 的一个很好的用例。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(17:07)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">第二种是 AI 真正擅长的：当你有数年的历史数据来预测未来结果。例如在 Amazon，我们用 AI 预测库存需求，基于季节趋势、即将到来的促销甚至天气模式的复杂组合来预测。这些模型可以考虑数百个不同的变量，这是人类无法有效处理的。在预测用例中，AI 是很好的选择。当你需要为成千上万甚至数百万用户大规模创建个性化体验时，AI 也变得极其有价值。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(18:19)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">那什么时候不该用呢？</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(18:21)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">我不会说"不该用"，而是这些情况下启发式（基于规则的方法）就足够了。启发式是什么？就是简单的规则集——你的 if-else，如果发生这个就做那个。这些基于你的过去经验或行业惯例。当你的行业可解释性不可妥协时——因为 AI 模型很难有高可解释性，虽然有可解释性工具但整体仍然较低。或者当你的领域有明确的规则时，比如税务计算。税务法规复杂但明确，非常适合基于规则的实现。如果数据有限，因为 AI 需要大量数据才能有效——如果你在进入一个没有历史数据的新市场或发布新功能。或者当开发速度至关重要时——AI 系统通常需要更长时间来构建和实施，对于 MVP 或时间敏感的功能，从传统方法开始可能是正确的商业决策。</div>
+    </div>
+  </div>
+
+  <!-- Section 6 -->
+  <div class="transcript-section">
+    <div class="transcript-header">
+      <div class="ts-time">(00:20:31)</div>
+      <div class="ts-title">选择正确的 AI 技术：ML、深度学习和生成式 AI</div>
+      <div class="ts-desc">AI 技术可分为传统 ML、深度学习和生成式 AI。传统 ML 适用于结构化数据和预测/分类任务。深度学习在图像、视频、音频数据的高级模式识别中表现出色。生成式 AI 用于理解、生成或推理自然语言或图像。最好的 AI 产品通常结合多种方法。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(20:31)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">你已经确定了要用 AI，不是那些可解释性或上市速度很重要的场景。那如何选择正确的 AI 技术？</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(20:41)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">让我们深入探讨。当我们现在看 AI 时，人们直接跳到"用 ChatGPT"或"用 LLM 构建"。但说实话，一个简单的机器学习模型可能一周就能解决问题，而且成本只是零头。我把 AI 技术分为三大类。第一是传统 ML——回归模型、随机森林、XGBoost，这些存在多年了，成熟可靠，说实话，它仍然驱动着你日常交互的大多数 AI。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(21:29)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">第二是深度学习。这是你的神经网络、计算机视觉、语音识别。当你处理图像、视频、音频等非结构化数据且需要高级模式识别时表现出色。第三是生成式 AI——LLM、扩散模型、Stable Diffusion、ChatGPT、Claude。有趣的是，这些不是竞争对手，而是你工具箱中的工具。最好的 AI 产品通常结合多种方法。当有结构化数据且需要预测或分类时选 ML——想想电子表格。ML 的最佳场景是预测一个数字或类别、有清晰模式的历史数据、需要模型解释其决策，或速度和成本很重要时。例子如欺诈检测或客户流失预测。PM 应该问：我能不能把这个问题放进电子表格，有清晰的输入列和想要预测的输出？如果能，从 ML 开始，不需要复杂化。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(23:02)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">深度学习适用于感知任务——图像、视频、音频，或模式太复杂传统 ML 无法捕捉时。想想看，当人类能轻松完成但很难写明确规则时，深度学习就大放异彩。比如我看到你的脸知道这是 Aakash，这对我来说很容易。但如果你让我用代码写出"是什么特征让我认为这是 Aakash"，这是不可能翻译成 if-then 语句的。这就是深度学习的用武之地。例子如医学图像诊断、制造缺陷检测（计算机视觉扫描流水线上的产品判断是否有裂纹或标签错位）、语音助手（将语音转为文本）。PM 应该问：这是一个感知问题吗？我处理的是图像、音频、视频吗？如果是，深度学习是你的朋友。但注意——深度学习需要更多数据、更多计算，且比传统 ML 更不可解释。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(24:31)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">然后是生成式 AI？</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(24:32)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">是的，热门话题。当你想要理解、生成或推理自然语言或图像时用生成式 AI。LLM 的突破不只是它们能写，而是它们能读、能理解上下文、能跨信息推理并恰当回应——这与任何传统 AI 系统根本不同。当用户需要用自然语言与产品交互而非点击按钮或填表单时，生成式 AI 是好选择。内容生成是另一个用例——写文案、产品描述、邮件草稿。当你需要推理和综合时，LLM 可以从多个来源获取信息、理解上下文并做出判断。PM 应该问：这个任务需要用自然语言读或写吗？我需要常识推理而不仅是模式匹配吗？用户会以对话方式与产品交互吗？如果任何一个回答是"是"，生成式 AI 可能就在你的方案中。</div>
+    </div>
+  </div>
+
+  <!-- Section 7 -->
+  <div class="transcript-section">
+    <div class="transcript-header">
+      <div class="ts-time">(00:26:31)</div>
+      <div class="ts-title">AI 智能体：核心构建模块与目标导向系统</div>
+      <div class="ts-desc">Agentic AI 是一种无需明确指令就能做出决策和采取行动以实现目标的系统。核心构建模块是感知、推理、执行和学习。感知涉及智能体如何接收输入，推理是处理信息的方式，执行是采取行动的方式，学习是改进的方式。区分 AI 智能体的关键在于它是目标导向的。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(26:09)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">还有 AI 智能体这一大话题，对吧？大多数人要么在产品中构建智能体，要么在产品中构建 MCP 让智能体能与产品交互。所以你可能还需要思考……</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(26:32)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">这是进入核心构建模块的绝佳过渡，从 AI 智能体开始。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(26:42)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">第一个概念是：什么是智能体或什么是 Agentic AI？Agentic AI 是一种能够代表你或自主做出决策和采取行动以实现某个目标的系统。你没有明确告诉它遵循什么顺序。它理解你的目标并尝试推理、找到路径来实现目标。区分 AI 智能体的关键在于它是目标导向的。来看 AI 智能体的核心构建模块。第一是感知——智能体如何感知信息，如文本输入、图像或传感器数据或 API 连接。这是智能体接收输入的方式。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(27:38)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">第二个模块是推理——智能体如何处理信息并做出决策。你的模型在这里——LLM、分类模型、规划算法。第三个是执行或行动系统——智能体如何影响环境，通过生成文本、调用 API 或控制硬件。第四是学习——智能体如何评估结果并改进的反馈机制。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(28:24)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">那什么时候用工作流，什么时候用智能体？</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(28:27)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">工作流和智能体之间有巨大区别。两者都是 AI 系统。工作流是预定义的任务序列，一切都已被定义——流程如何走、如何执行。可以把它想成自动化管道。例如发票处理工作流：第一步从 PDF 提取数据，第二步根据规则验证，第三步让 AI 系统评估，第四步更新系统。而智能体是目标导向系统——它们能独立决定如何实现目标。工作流的特征是可预测的模式、执行路径、人定义的决策树和确定性结果。智能体的架构特征非常不同。智能体架构包括：智能体（大脑/编排器）、模型（LLM 或 ML 模型）、记忆（存储上下文和历史信息，让智能体有状态）和工具（API、代码执行引擎等通用工具，扩展模型能力之外的功能）。</div>
+    </div>
+  </div>
+
+  <!-- Section 8 -->
+  <div class="transcript-section">
+    <div class="transcript-header">
+      <div class="ts-time">(00:31:03)</div>
+      <div class="ts-title">工作流 vs 智能体：用 N8n 构建天气预报系统</div>
+      <div class="ts-desc">工作流是预定义任务序列，智能体是目标导向系统。用 N8n 可以构建工作流和智能体。先构建了一个发送天气信息邮件的基本工作流，然后构建了一个智能体工作流——智能体根据用户问题自主决定使用哪些工具。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(31:03)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">今天的播客由 Pendo 赞助……McKinsey 发现 78% 的公司在使用生成式 AI，但同样多的公司报告没有底线改善。那你怎么知道 AI 智能体是否真正在起作用？……由 Nia1 赞助……由 Chameleon 赞助……</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(33:26)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">现在，让我们做一个实操练习，先构建一个工作流，然后构建一个智能体。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(33:34)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">为此我将使用 N8n。它是低代码/无代码的，任何人都可以轻松构建工作流或智能体。它有非常强大的社区。今天我们先构建一个工作流来理解它是什么样的，然后构建智能体时就能看到差异。N8n 中有不同类型的节点。有触发节点——启动自动化的节点，比如手动触发、按计划触发或启动时触发。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(34:29)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">首先从触发事件开始，我们选择手动触发。触发后，我想让它调用 HTTP 请求获取天气信息。我们使用 OpenMeteo 这个免费的天气 API。我住在洛杉矶，所以我输入洛杉矶的经纬度。我只需要温度信息。获取 API URL 后回到 N8n，创建一个 HTTP 请求节点，使用 GET 方法，粘贴 API URL。执行后可以看到右侧输出了从 API 获取的信息。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(36:29)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">但获取的信息格式不太方便工作流执行，所以我们添加一个代码节点做一些代码修改，用 JavaScript 运行。你可能会说"Jyothi，我不会写代码"——没关系，我基本上是去 ChatGPT 说我想要什么代码，用 JavaScript，然后粘贴到 N8n 中，ChatGPT 就为我生成了代码。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(37:44)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">所以你的常规工作流基本上就是在 N8n 上需要用的代码都让 ChatGPT 写。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(37:50)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">是的，非常简单。代码给出了消息："在洛杉矶，今天最高温度是这个，最低温度是这个。"顺便说，我还是习惯用摄氏度。现在我想发邮件。你看这里没有任何智能——就是一步一步的。N8n 有 Gmail 集成，我选择发送消息节点。已经有了凭证。收件人填 jyothi@nextgenproductmanager.com，主题是"今日天气报告"，邮件类型保持文本格式。执行后就发送了邮件。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(39:48)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">我收到了消息说洛杉矶最高温度是这个。这是一个基本工作流，但没有智能。所以让我们用同样的 N8n 创建一个智能体工作流。从零开始，添加一个聊天消息触发器。然后添加一个智能体。默认就给出了一个可以开始的智能体——有模型节点、记忆节点和可以添加的工具节点。添加 OpenAI 聊天模型，连接 OpenAI API，选择 GPT-4.1 mini。给一个简单的记忆让它能记住东西。然后添加工具——一个获取天气的 HTTP 请求工具和一个 Gmail 工具。这里我们不定义任何代码，不定义如何转换消息，不写任何步骤。只是说：这是 HTTP 工具，这是发邮件的工具。让智能体完成所有任务。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(42:20)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">现在运行。我输入"洛杉矶今天的天气是什么？"可以看到它在运行——它调用了 HTTP 请求工具，给我返回了天气信息：今天洛杉矶温度从清晨的 14.5 摄氏度上升到上午约 17 摄氏度。注意它没有执行 Gmail——我从未说"不执行这个"或"不执行那个"，但智能体确定它只需要获取天气工具就够了。但如果我说"发送消息"，它就会使用 Gmail 工具发送消息。这是一个经典的例子——我们没有告诉智能体用哪个工具，智能体根据我们问的问题和任务自行决定。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(43:22)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">这才是它真正成为 AI 的地方——一个真正的 AI 工作流，而不是普通的无代码工作流。</div>
+    </div>
+  </div>
+
+  <!-- Section 9 -->
+  <div class="transcript-section">
+    <div class="transcript-header">
+      <div class="ts-time">(00:43:30)</div>
+      <div class="ts-title">提示工程与上下文工程：AI 智能体成功的关键</div>
+      <div class="ts-desc">提示工程涉及设计提示词来告诉 AI 智能体做什么和如何表现。系统提示设定整体行为，用户提示是实际输入。上下文工程管理 AI 在上下文窗口约束下有效工作所需的一切信息。上下文分为即时上下文、会话上下文和知识上下文。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(43:33)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">在进入 RAG 之前，我想谈一个每个与 AI 智能体工作的产品经理都需要知道的关键概念——提示工程和上下文工程。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(43:45)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">从提示工程开始，因为这是我们大多数人开始 AI 智能体旅程的地方。把提示词想成你与 AI 系统之间的主要接口。提示是你告诉 AI 智能体做什么、如何表现、期望什么结果的方式。首先是系统提示——设定智能体的整体行为和个性。比如你构建客服智能体，系统提示可能是建立共情个性、保持专业、始终验证客户身份。其次是用户提示——用户实际输入给 LLM 或与聊天产品交互的内容。但有趣的是，你如何设计系统来处理用户输入的不可预测性，决定了你的智能体如何回应，因为用户不会总是按你期望的方式提问。这就是少样本提示等技术发挥作用的地方——通过提供额外示例来向 AI 展示好的回答是什么样的。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(45:19)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">这是被严重低估的一个——你实际放入一个例子说"这是好的回答，这是不好的回答"。人们觉得这很费功夫，但当你在为智能体设计系统提示时，其实很值得。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(45:31)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">我在生产系统中发现这非常强大——通过提供示例向 AI 展示好的回答是什么样的。与其试图用抽象术语描述你想要什么，你可以给 AI 展示理想交互的具体例子。现在进入上下文工程。上下文工程是生产系统中魔法发生的地方——它是管理 AI 在上下文窗口约束下有效工作所需的一切信息。AI 模型有上下文窗口——一次能处理多少信息的限制。Claude 有 20 万 token 的上下文窗口，听起来很多，但当你开始加载公司知识库、对话历史、实时数据、用户提示时，突然你就在做艰难的决定——什么留下，什么去掉。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(46:21)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">我把上下文工程分为三层。第一是即时上下文——用户当前正在进行的对话或任务。第二是会话上下文——用户最近交互的会话信息。第三是知识上下文——智能体需要参考的更广泛信息。我学到的一个教训是：上下文窗口管理直接影响你的成本，因为你处理的每个 token 都要花钱。如果不小心把整个知识库加载到每次交互中，你会很快烧光预算。所以上下文工程更像是一门知道何时加载什么信息的艺术。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(47:33)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">有什么你亲身经历的教训？你们在这些公司中有因为往里塞了太多上下文而超支吗？</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(47:40)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">是的。那就是我们开始理解——有一种方法可以根据信息动态地确定需要加载什么上下文，从知识库中加载什么信息。这就是提示流和编排模式的用武之地。所以当人们说提示工程已死时，它没有死。它是这个整体上下文工程的一部分，包含了提示策略。</div>
+    </div>
+  </div>
+
+  <!-- Section 10 -->
+  <div class="transcript-section">
+    <div class="transcript-header">
+      <div class="ts-time">(00:48:13)</div>
+      <div class="ts-title">检索增强生成（RAG）：用知识库增强 LLM</div>
+      <div class="ts-desc">RAG 从知识库中检索信息，与用户输入合并后传给 LLM。RAG 能解决 80% 的问题，使微调成为最后手段。流程包括将文档分块、转换为嵌入向量、存入向量数据库，然后根据用户查询检索相关信息。微调永远不应是第一选择，甚至不应该是第二选择。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(48:13)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">那我们如何快速动态地拉取这些信息？</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(48:15)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">这就是我们要学习 RAG 的地方——基于提示如何检索正确信息并加载。RAG 就是检索增强生成。它很简单但有巨大的价值。当有人问"我应该微调模型吗？"我会说，不，先从 RAG 开始，因为 RAG 可能解决你 80% 的问题。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(48:45)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">这可能是最重要的技能了。每个内部部署 AI 的企业、每个产品，通常都用 RAG 系统。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(48:45)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">绝对如此。RAG 从知识库中检索信息，与用户输入合并后传给 LLM，使 LLM 能够生成扎根于公司知识库的输出。来看 RAG 系统的工作方式：假设你有公司的一些文档，你把它们分块——分块就是把文档拆成更小的片段。可以想象成一本故事书，每 20 页撕一次。这是一种固定分块策略。然后通过嵌入模型转换为向量，存入向量数据库。当用户查询时，用户查询也通过嵌入模型转换为向量，在向量数据库中找最近邻——即能回答用户问题的相似内容。从数据库检索信息，与用户输入合并后传给 LLM。LLM 现在有了来自向量数据库的相关文档和用户输入，生成扎根于信息的回应。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(50:59)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">关于微调。很多人问我：能不能拿一个 LLM 微调到我们的用例？微调永远不应是你的第一选择，甚至不应该是第二选择。它应该在你穷尽了提示工程、上下文工程和 RAG 方法之后再考虑。实际建议的层级是：先做提示优化，然后优化上下文工程，实施 RAG，只有这些都不够才考虑微调。大约 80% 的用例用 RAG 而非微调就能解决。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(51:37)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">特别是如果你在顶部做了很好的提示工程。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(51:40)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">绝对如此。只有这三步不够，才应该去微调。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(51:46)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">我觉得因为微调在 API 文档里，人们就马上跳过去了，但首先要遵循这个顺序。</div>
+    </div>
+  </div>
+
+  <!-- Section 11 -->
+  <div class="transcript-section">
+    <div class="transcript-header">
+      <div class="ts-time">(00:51:53)</div>
+      <div class="ts-title">用 Langflow 构建 RAG 系统：无代码方式</div>
+      <div class="ts-desc">使用无代码工具 Langflow 构建 RAG 系统。流程包括加载数据、将文本分块、使用 OpenAI 嵌入、存入向量数据库。然后构建检索流让用户提问并从文档中检索答案。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(51:53)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">来看如何构建 RAG 系统。我们将使用 Langflow——一种无代码工具，通过模块和连接构建 RAG 系统。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(52:11)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">为什么用 Langflow？为什么不用 N8n 或其他工具？</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(52:14)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">你也可以用 N8n。我发现 Langflow 更偏向 Agentic AI 的入门，所以更容易在其中构建 RAG 系统，但 N8n 也行。Langflow 另一个优势是它与 LangChain、LangSmith 社区很好地整合，一些追踪能力也能轻松接入。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(52:50)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">从空白画布开始，先构建数据加载流——取一个文档并分块。从文件开始，我选择"2025 年商业 AI 现状报告"并添加。然后需要分文本——这是分块的地方。它提供了不同选项如块重叠、块大小。我保持默认，连接文件到输入。文件会被分块。然后调用 OpenAI 嵌入——使用 embedding-3-small 模型。需要一个向量数据库——Langflow 有很多选项如 Pinecone、ChromaDB。我用 AstraDB。选择数据库和集合后，将分块连接到数据摄入，嵌入模型连接到 AstraDB 的嵌入模型。运行——流程构建成功。文件被分块并存入了数据库。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(55:00)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">现在构建检索流——用户可以提问并从文档中检索答案。从聊天输入开始——用户需要一种方式提问。然后添加嵌入模型（与数据流中相同的模型）。向量化的输入到 AstraDB 搜索文档——选择相同的数据库和集合（有 136 条记录）。连接嵌入模型和聊天输入作为搜索查询。数据需要被解析——添加解析器并连接数据帧。然后创建一个提示模板来给指令——"给定上面的上下文，尽可能好地回答问题"。最后添加语言模型，连接提示到输入，连接上下文，连接模型响应到输出。运行——流程构建成功。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(57:06)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">去 Playground，我可以问问题了。比如"这个文档是关于什么的？"它返回了文档信息——报告标题是"2025 年商业 AI 现状：GenAI 鸿沟"。它给了我更多关于这个文档的信息。</div>
+    </div>
+  </div>
+
+  <!-- Section 12 -->
+  <div class="transcript-section">
+    <div class="transcript-header">
+      <div class="ts-time">(00:58:01)</div>
+      <div class="ts-title">破解 AI PM 角色：做产品，而不只是做项目</div>
+      <div class="ts-desc">要成为 AI PM，专注于构建解决真实问题的产品并发布以获得真实用户反馈。这种方法为招聘者提供了更丰富的细节和信心。创建一个包含解决真实问题的应用、一个智能体和一个 RAG 系统的作品集。要把它当作做产品来对待。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(57:56)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">很好。我们构建了 RAG 系统。大家看到了 RAG 的基础。这涵盖了所有构建模块——何时用 AI、选择什么 AI 技术、AI 的关键构建模块、提示工程、上下文工程、工作流 vs 智能体工作流，最后是 RAG 系统。这就是你要去学习的路线图——不只是看播客，而是出去自己实现，这样你才能烂熟于心。当你到 AI PM 岗位时，你能帮助工程团队真正构建这些。在实际产品中你不会用无代码工具，但通过无代码工具你学到来龙去脉，建立了直觉。比如"总是先做 RAG 再微调"——如果你实践过，你会很快建立自己的直觉。你已经入门 AI PM 了。很多人想入行。正确的路线图是什么？最好的实操项目是什么？</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(59:08)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">我建议始终从"做产品"而非"做项目"的角度出发。针对你自己的用例或痛点来构建。做完之后不要就此止步，要把它当作产品来对待。发布它。让朋友和家人尝试使用。突然你就有真实用户了。会有东西出问题。你就在像一个真正的产品经理一样做事了。从项目到产品，会给你把项目写进简历的信心。你可以提供更多细节——这些用例中出了什么问题，你克服了什么挑战。这比你只是说"我上了这门课或做了这个项目"要丰富得多。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(1:00:11)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">所以是做产品，不是做项目。人们应该创建作品集吗？好的作品集是什么样的？</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(1:00:18)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">你的作品集应该有某种解决真实问题的应用——现在有很多无代码原型工具可以用。构建一个智能体——我们刚构建了一个简单的智能体，构建一个解决某个问题的智能体。构建一个 RAG 系统——我们刚看到了如何构建。寻找你所在领域的问题，构建这些作为作品集，然后不只是叫它项目，而是让真实用户使用，把它变成产品。突然你的简历上就有了三个你编排的产品。</div>
+    </div>
+  </div>
+
+  <!-- Section 13 -->
+  <div class="transcript-section">
+    <div class="transcript-header">
+      <div class="ts-time">(01:00:55)</div>
+      <div class="ts-title">证书的价值以及 Amazon、Meta 和 Netflix 的 AI PM 文化</div>
+      <div class="ts-desc">证书向招聘者传递可信度和权威认证的信号。Amazon 有以客户为中心、以文档写作为驱动的文化。Meta 强调实验和迭代。Netflix 崇尚"上下文优于控制"，信任员工独立运作。这些经历塑造了你这个人，以及你作为产品经理获得的洞察力。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(1:00:55)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">证书有多重要？AWS ML 认证能给你带来什么？</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(1:01:00)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">证书是向招聘人员和招聘经理传递信号的好方式——表明你学到的不仅是理论，而且是可信的、有认证的。例如我在 NextGen Product Manager 提供 AI 产品管理课程，教你关于 AI 产品管理的一切。你可以学习概念、做大量实操项目，然后考取 AWS AI 从业者证书。这给你一个可信的证书，告诉招聘经理这不仅是学过的，还有 AWS 的权威认证。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(1:01:51)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">说到 AWS，我想谈谈你的职业生涯。你在 AWS、Meta、Netflix 都工作过。这三家公司的 AI PM 文化有什么不同？</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(1:02:03)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">非常不同。从 Amazon/AWS 说起——这是我职业生涯的起点。是非常以客户为中心、以文档写作为驱动的文化。Amazon 发明了 PR FAQ 和六页文档——一切从新闻稿和常见问题文档开始，甚至在工程写一行代码或设计稿创建之前。理念是"从客户出发逆向思考"。你从客户问题开始，阐述为什么现有方案不行，然后解释你的产品如何解决它。这就是用于战略评审的 PR/FAQ 或六页文档。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(1:03:00)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">这不只是走形式的文档。它非常严肃——PR/FAQ 会一直评审到你的 VP，甚至有时 Andy Jassy。Amazon PM 可能花 40-50% 的时间写文档。所以你在 Amazon 会成为出色的写作者。在 Meta，流程上几乎相反。如果 Amazon 是严格的前期规划，Meta 就是实验和迭代。文化精神就是"快速行动"。在 Meta，产品管理需要深度技术化——你能理解代码库，能看实现细节，能讨论如何发布多个变体，如何对对照组测试，让数据告诉你什么有效。在我工作过的所有公司中，Meta 拥有业界最成熟的实验基础设施。作为 PM，你活在统计显著性中。在 Netflix，理念是"上下文优于控制"——可能是大型科技中最独特的产品管理方式。没有严格的流程、文档要求或审批层级，Netflix 大量投资确保每个人都理解战略背景，然后信任你在那个背景下独立运作。你需要成为出色的沟通者，不需要像 Amazon 那样总是用正式文档，而是通过对话、演示和共享理解来建立对齐。你需要非常习惯模糊性，能定义自己的泳道。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(1:05:28)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">这三家公司——Meta、Amazon 和 Netflix——都以硬文化著称，绩效导向的文化。Amazon 刚裁员 3 万人，Meta 有滚动式裁员，Netflix 也出了名。不同的人会离开。到处都有压力。在这些公司工作怎么样？你会推荐给其他人吗？</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(1:05:56)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">这是一段绝对非凡的体验。我从这些公司学到了很多。在 Amazon，我建立了文档和客户思维的严谨性——第一件事就是学会从客户痛点出发逆向思考。在 Meta，一切围绕"如何快速测试？实验文化是什么样的？"在 Netflix，我真正学到了自主权意味着什么、自主权的力量，以及建立共识、朝着共同愿景协作的共享体验。它塑造了你这个人，以及你作为产品经理获得的洞察力。而且规模是惊人的——在 Amazon、Meta、Netflix，你构建的每个功能可能都被数百万用户使用。我鼓励每个人在职业生涯中的某个阶段拥有这样的经历。</div>
+    </div>
+  </div>
+
+  <!-- Section 14 -->
+  <div class="transcript-section">
+    <div class="transcript-header">
+      <div class="ts-time">(01:07:15)</div>
+      <div class="ts-title">Jyothi 从 Netflix 转向全职 AI PM 教学和咨询</div>
+      <div class="ts-desc">Jyothi 分享了她离开 Netflix AI PM 总监职位、专注于 AI 领域教学和咨询的决定。她从帮助产品专业人士转型 AI PM 角色中获得满足感，并希望利用自己的经验帮助公司制定 AI 战略。她有约 12 项 AI 领域专利。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(1:07:15)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">那你为什么离开 Netflix？Netflix 的 AI PM 总监听起来像梦寐以求的工作。背后的故事是什么？</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(1:07:23)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">我在 AI 领域做了 13 年半的 AI PM。信不信由你，AI 在 LLM 之前就存在了。我在 AI 领域这么长时间了，有约 12 项 AI 专利。随着 AI 的巨大增长，我想，嘿，我确实从教产品专业人士如何转型为 AI PM 中获得了很多满足感。我教了两年半了。最大的满足感是当有人说"你的经验、你的洞察太有力量了，我成功通过了面试，现在薪水是以前的 2 倍"。巨大的满足感，在改变职业方向的意义上。所以我说，外面有很多机会，随着 AI 公司越来越多，我想花时间全职投入到教学中，花时间教课和咨询公司制定 AI 战略——应用我领导规模化 AI 业务和产品的经验来帮助他们的产品组合。我跳了出来。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(1:09:00)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">我问这个问题，你可以分享多少都行——Netflix 以高薪著称，Meta 和 Amazon 也是。大家会假设你做老师赚得盆满钵满。能分享一下吗？从全职 PM 变成现在，Jyothi 的生意怎么样？</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(1:09:19)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">我是这个领域的新人。虽然教了两年半，但之前是兼职。我新增了两门课程——之前只教 AIPM，因为没带宽。现在全职了，加了一门深入 Agentic AI 的课程（适合已了解 AIPM 基础、想领导构建 Agentic AI 产品的人），还有一个 PM 加速器，专门帮助专业人士通过产品面试——产品sense、产品执行、行为面试。我看到不同群体对这三门课程都有很大兴趣。大多数与我合作的人是第一次接触 AI。我的 Agentic AI 和加速器课程不做对外推广，但课程都满了——因为之前上过 AIPM 的学生继续沿着漏斗进入 Agentic AI 和 PM 加速器。全职投入的感觉很棒。才两个月，可能还太早说情况如何，但我很兴奋。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(1:10:48)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">如果我在字里行间读的话，你可能还没有达到 Netflix AI PM 总监的收入水平，但你明显看到了达到甚至超越的路径。这样公平吗？</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(1:10:57)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">绝对如此，是的。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(1:10:58)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">好的，这就是你们作为课程讲师可以获得的潜力。Jyothi，感谢你如此深入、如此慷慨地分享你的知识。非常感谢你来播客。</div>
+    </div>
+  </div>
+
+  <!-- Section 15 -->
+  <div class="transcript-section">
+    <div class="transcript-header">
+      <div class="ts-time">(01:11:12)</div>
+      <div class="ts-title">播客尾声</div>
+      <div class="ts-desc">Aakash 感谢 Jyothi 分享知识，鼓励听众在 Apple 和 Spotify 上关注播客，在 YouTube 上订阅，并查看他的捆绑包以获取 AI 产品。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(1:11:09)</span><span class="name jyothi">Jyothi Nookula</span></div>
+      <div class="dialogue-text">非常感谢你们邀请我。我很激动能来到这里。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(1:11:15)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">好的，大家，下次见。希望你们喜欢这集。如果你能花一刻确认你在 Apple 和 Spotify 播客上关注了、在 YouTube 上订阅了、在 Apple 或 Spotify 上留了评分或评论、在 YouTube 上评论了——所有这些都会帮助算法把节目分发给更多人。随着分发给更多人，我们可以成长节目，提升内容质量和制作水平，为你提供更好的洞察来保持职业领先。最后，去 bundle.aakashg.com 查看我的捆绑包，免费获得九款 AI 产品全年使用权。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker"><span class="time-tag">(1:11:51)</span><span class="name aakash">Aakash Gupta</span></div>
+      <div class="dialogue-text">包括 Dovetail、Mobbin、Linear、Reforge Build、Descript 和许多其他帮助你作为 AI 产品经理或构建者取得成功的工具。下集见。</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>本文档由 Podwise.AI 笔记翻译生成 · 中文翻译仅供参考</p>
+  <p>原播客：Aakash Gupta × Jyothi Nookula · 2026-03-23</p>
+</div>
+
+</div>
+</body>
+</html>
