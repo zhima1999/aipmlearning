@@ -429,24 +429,31 @@ body {
 }
 .note-panel-item-meta button:hover { text-decoration: underline; }
 .note-panel-footer {
-  padding: 16px 20px;
+  padding: 12px 16px;
   border-top: 1px solid var(--border);
   display: flex;
   gap: 8px;
 }
 .note-panel-footer button {
   flex: 1;
-  padding: 8px;
+  padding: 8px 6px;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 12px;
   border: 1px solid var(--border);
   background: none;
   color: var(--text-secondary);
+  transition: all 0.2s;
 }
-.note-panel-footer button:hover { border-color: var(--text-secondary); color: var(--text); }
-.note-panel-clear { color: var(--red) !important; border-color: var(--red) !important; }
-.note-panel-clear:hover { background: rgba(248,81,73,0.1) !important; }
+.note-panel-footer button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(88,166,255,0.08);
+}
+.note-panel-export { font-weight: 500; }
+.note-panel-import { font-weight: 500; }
+.note-panel-clear { color: var(--red) !important; border-color: rgba(248,81,73,0.3) !important; }
+.note-panel-clear:hover { background: rgba(248,81,73,0.1) !important; color: var(--red) !important; }
 
 /* 笔记 Tooltip */
 #note-tooltip {

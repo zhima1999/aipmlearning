@@ -2,6 +2,7 @@
  * AI PM 学习中心 — 文本批注（笔记）系统
  * 功能：选中文字 → 添加笔记 → 高亮显示 → 侧边笔记面板查看
  * 存储：localStorage（按页面路径独立存储）
+ * 导入/导出：支持跨设备迁移笔记
  */
 
 (function () {
@@ -25,7 +26,6 @@
 
   /* ========== 加载笔记 ========== */
   function getPageKey() {
-    // 用相对路径作为 key，兼容 GitHub Pages 子路径
     const path = window.location.pathname;
     return STORAGE_PREFIX + path;
   }
@@ -34,7 +34,6 @@
     try {
       const raw = localStorage.getItem(getPageKey());
       notes = raw ? JSON.parse(raw) : [];
-      // 恢复 ID 计数器
       if (notes.length > 0) {
         highlightIdCounter = Math.max(...notes.map((n) => n.id)) + 1;
       }
@@ -91,14 +90,22 @@
     modal.style.cssText = "display:none;";
     document.body.appendChild(modal);
 
-    // 3. 侧边笔记面板切换按钮
+    // 3. 隐藏的文件上传 input
+    const fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.accept = ".json";
+    fileInput.id = "note-import-input";
+    fileInput.style.cssText = "display:none;";
+    document.body.appendChild(fileInput);
+
+    // 4. 侧边笔记面板切换按钮
     const panelToggle = document.createElement("button");
     panelToggle.id = "note-panel-toggle";
     panelToggle.innerHTML = "📋<span class='note-count-badge'>0</span>";
     panelToggle.title = "查看笔记";
     document.body.appendChild(panelToggle);
 
-    // 4. 侧边笔记面板
+    // 5. 侧边笔记面板
     const panel = document.createElement("div");
     panel.id = "note-panel";
     panel.innerHTML = `
@@ -108,7 +115,9 @@
       </div>
       <div class="note-panel-list"></div>
       <div class="note-panel-footer">
-        <button class="note-panel-clear">清除本页笔记</button>
+        <button class="note-panel-export" title="导出所有笔记为 JSON 文件">导出</button>
+        <button class="note-panel-import" title="从 JSON 文件导入笔记">导入</button>
+        <button class="note-panel-clear">清除</button>
       </div>
     `;
     document.body.appendChild(panel);
@@ -118,35 +127,42 @@
 
   /* ========== 事件绑定 ========== */
   function bindEvents() {
-    // 文字选中 → 显示浮动按钮
     document.addEventListener("mouseup", onMouseUp);
     document.addEventListener("selectionchange", onSelectionChange);
 
-    // 浮动按钮点击 → 打开编辑弹窗
     const floatBtn = document.getElementById("note-float-btn");
     floatBtn.addEventListener("click", openModal);
 
-    // 弹窗关闭/取消/保存
     const modal = document.getElementById("note-modal");
     modal.querySelector(".note-modal-backdrop").addEventListener("click", closeModal);
     modal.querySelector(".note-modal-close").addEventListener("click", closeModal);
     modal.querySelector(".note-modal-cancel").addEventListener("click", closeModal);
     modal.querySelector(".note-modal-save").addEventListener("click", saveNote);
 
-    // 侧边面板
     document.getElementById("note-panel-toggle").addEventListener("click", togglePanel);
     document.querySelector(".note-panel-close").addEventListener("click", togglePanel);
     document.querySelector(".note-panel-clear").addEventListener("click", clearNotes);
+    document.querySelector(".note-panel-export").addEventListener("click", exportNotes);
+    document.querySelector(".note-panel-import").addEventListener("click", () => {
+      document.getElementById("note-import-input").click();
+    });
 
-    // ESC 关闭弹窗
+    document.getElementById("note-import-input").addEventListener("change", importNotes);
+
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") closeModal();
+    });
+
+    // 点击页面其他地方关闭 tooltip
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest("#note-tooltip") && !e.target.closest(".note-highlight")) {
+        removeTooltip();
+      }
     });
   }
 
   /* ========== 文字选中处理 ========== */
   function onMouseUp(e) {
-    // 如果点击的是浮动按钮本身，不处理
     if (e.target.closest("#note-float-btn")) return;
     if (e.target.closest("#note-modal")) return;
 
@@ -165,7 +181,6 @@
     currentSelection = sel.getRangeAt(0).cloneRange();
     currentSelectedText = text;
 
-    // 定位浮动按钮
     const rect = sel.getRangeAt(0).getBoundingClientRect();
     const btn = document.getElementById("note-float-btn");
     btn.style.display = "block";
@@ -174,13 +189,13 @@
   }
 
   function onSelectionChange() {
-    // 如果弹窗打开，不隐藏按钮
     const modal = document.getElementById("note-modal");
     if (modal.style.display === "block") return;
   }
 
   function hideFloatBtn() {
-    document.getElementById("note-float-btn").style.display = "none";
+    const btn = document.getElementById("note-float-btn");
+    if (btn) btn.style.display = "none";
   }
 
   /* ========== 弹窗操作 ========== */
@@ -195,7 +210,8 @@
   }
 
   function closeModal() {
-    document.getElementById("note-modal").style.display = "none";
+    const modal = document.getElementById("note-modal");
+    if (modal) modal.style.display = "none";
     window.getSelection().removeAllRanges();
   }
 
@@ -236,19 +252,18 @@
     try {
       currentSelection.surroundContents(span);
     } catch {
-      // 跨元素选中时 surroundContents 会失败，用 insertNode 兜底
       const fragment = currentSelection.extractContents();
       span.appendChild(fragment);
       currentSelection.insertNode(span);
     }
 
-    // 点击高亮文字 → 显示笔记
-    span.addEventListener("click", () => showNoteTooltip(note.id));
+    span.addEventListener("click", (e) => {
+      e.stopPropagation();
+      showNoteTooltip(note.id);
+    });
   }
 
   function restoreHighlights() {
-    // 重新加载页面时，需要从存储的 selectedText 重新高亮
-    // 由于 DOM 已重新渲染，无法直接定位，采用「搜索文字并高亮」策略
     notes.forEach((note) => {
       highlightTextBySearch(note);
     });
@@ -260,7 +275,6 @@
     const idx = bodyText.indexOf(note.selectedText);
     if (idx === -1) return;
 
-    // 用 TreeWalker 找到文字节点并高亮
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
     let charCount = 0;
     let targetNode = null;
@@ -294,7 +308,7 @@
           showNoteTooltip(note.id);
         });
       } catch {
-        // 忽略无法高亮的情况（文字已被其他高亮包裹等）
+        // 忽略无法高亮的情况
       }
     }
   }
@@ -317,7 +331,6 @@
     `;
     document.body.appendChild(tooltip);
 
-    // 定位到对应高亮元素附近
     const hl = document.querySelector(`[data-note-id="${noteId}"]`);
     if (hl) {
       const rect = hl.getBoundingClientRect();
@@ -345,7 +358,6 @@
       saveNotes();
       updateBadge();
       renderPanelList();
-      // 更新 title
       const hl = document.querySelector(`[data-note-id="${noteId}"]`);
       if (hl) hl.title = `📝 ${truncate(note.note, 50)}`;
     }
@@ -356,7 +368,6 @@
     if (!confirm("确定删除这条笔记吗？")) return;
     notes = notes.filter((n) => n.id !== noteId);
     saveNotes();
-    // 移除高亮
     const hl = document.querySelector(`[data-note-id="${noteId}"]`);
     if (hl) {
       const parent = hl.parentNode;
@@ -365,6 +376,176 @@
     }
     updateBadge();
     renderPanelList();
+  }
+
+  /* ========== 导入/导出 ========== */
+
+  /**
+   * 导出所有笔记（全部页面）为 JSON 文件
+   * 文件格式：{ version, exportDate, pages: { "页面路径": [笔记数组] } }
+   */
+  function exportNotes() {
+    const allData = {};
+    let totalNotes = 0;
+
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key.startsWith(STORAGE_PREFIX)) {
+        try {
+          const pageNotes = JSON.parse(localStorage.getItem(key));
+          if (pageNotes && pageNotes.length > 0) {
+            // key 格式：aipm_notes_/path/to/page.html
+            const pagePath = key.replace(STORAGE_PREFIX, "");
+            allData[pagePath] = pageNotes;
+            totalNotes += pageNotes.length;
+          }
+        } catch {}
+      }
+    }
+
+    if (totalNotes === 0) {
+      alert("还没有任何笔记可以导出。");
+      return;
+    }
+
+    const exportObj = {
+      version: 1,
+      exportDate: new Date().toISOString(),
+      totalNotes: totalNotes,
+      pages: allData,
+    };
+
+    const blob = new Blob([JSON.stringify(exportObj, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    const dateStr = new Date().toISOString().slice(0, 10);
+    a.href = url;
+    a.download = `aipm-notes-${dateStr}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+
+    // 显示导出成功提示
+    showToast(`✅ 已导出 ${totalNotes} 条笔记`);
+  }
+
+  /**
+   * 从 JSON 文件导入笔记
+   * 支持合并模式：已有笔记不被覆盖，新的笔记追加
+   */
+  function importNotes(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const data = JSON.parse(event.target.result);
+
+        // 校验格式
+        if (!data.pages || typeof data.pages !== "object") {
+          alert("文件格式不正确，请选择由本系统导出的 JSON 文件。");
+          return;
+        }
+
+        let importedCount = 0;
+        let skippedCount = 0;
+
+        for (const [pagePath, pageNotes] of Object.entries(data.pages)) {
+          const key = STORAGE_PREFIX + pagePath;
+          let existingNotes = [];
+          try {
+            const raw = localStorage.getItem(key);
+            existingNotes = raw ? JSON.parse(raw) : [];
+          } catch {}
+
+          // 合并：跳过 ID 已存在的笔记
+          const existingIds = new Set(existingNotes.map((n) => n.id));
+          for (const note of pageNotes) {
+            if (!existingIds.has(note.id)) {
+              existingNotes.push(note);
+              importedCount++;
+            } else {
+              skippedCount++;
+            }
+          }
+
+          // 重新排序 ID 计数器
+          if (existingNotes.length > 0) {
+            const maxId = Math.max(...existingNotes.map((n) => n.id));
+            // 如果当前页面是这个页面，同步更新 highlightIdCounter
+            if (key === getPageKey()) {
+              highlightIdCounter = maxId + 1;
+            }
+          }
+
+          localStorage.setItem(key, JSON.stringify(existingNotes));
+        }
+
+        // 重新加载当前页面笔记
+        loadNotes();
+
+        // 重新渲染：先清除所有高亮，再重新高亮
+        document.querySelectorAll(".note-highlight").forEach((hl) => {
+          const parent = hl.parentNode;
+          parent.replaceChild(document.createTextNode(hl.textContent), hl);
+          parent.normalize();
+        });
+        restoreHighlights();
+        updateBadge();
+        renderPanelList();
+
+        let msg = `✅ 导入完成！新增 ${importedCount} 条笔记`;
+        if (skippedCount > 0) msg += `，跳过 ${skippedCount} 条重复笔记`;
+        showToast(msg);
+
+      } catch (err) {
+        alert("文件解析失败，请确认文件格式是否正确。\n错误：" + err.message);
+      }
+    };
+
+    reader.readAsText(file);
+    // 清空 input，允许重复选择同一文件
+    e.target.value = "";
+  }
+
+  /* ========== Toast 提示 ========== */
+  function showToast(msg) {
+    const existing = document.getElementById("note-toast");
+    if (existing) existing.remove();
+
+    const toast = document.createElement("div");
+    toast.id = "note-toast";
+    toast.textContent = msg;
+    toast.style.cssText = `
+      position: fixed;
+      bottom: 80px;
+      right: 24px;
+      z-index: 11000;
+      background: #1a2e1a;
+      color: #3fb950;
+      border: 1px solid #238636;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      animation: noteToastIn 0.3s ease;
+    `;
+    // 添加动画样式
+    if (!document.getElementById("note-toast-style")) {
+      const style = document.createElement("style");
+      style.id = "note-toast-style";
+      style.textContent = `
+        @keyframes noteToastIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes noteToastOut { from { opacity: 1; } to { opacity: 0; transform: translateY(12px); } }
+      `;
+      document.head.appendChild(style);
+    }
+    document.body.appendChild(toast);
+    setTimeout(() => {
+      toast.style.animation = "noteToastOut 0.3s ease forwards";
+      setTimeout(() => toast.remove(), 300);
+    }, 2500);
   }
 
   /* ========== 侧边面板 ========== */
@@ -403,7 +584,6 @@
       )
       .join("");
 
-    // 绑定按钮事件
     list.querySelectorAll(".note-panel-item-edit").forEach((btn) => {
       btn.addEventListener("click", () => editNote(Number(btn.dataset.id)));
     });
@@ -411,7 +591,6 @@
       btn.addEventListener("click", () => deleteNote(Number(btn.dataset.id)));
     });
 
-    // 点击选中文字 → 滚动到对应位置
     list.querySelectorAll(".note-panel-item").forEach((item) => {
       item.querySelector(".note-panel-item-selected").addEventListener("click", () => {
         const id = Number(item.dataset.id);
@@ -430,7 +609,6 @@
     notes = [];
     highlightIdCounter = 0;
     saveNotes();
-    // 移除所有高亮
     document.querySelectorAll(".note-highlight").forEach((hl) => {
       const parent = hl.parentNode;
       parent.replaceChild(document.createTextNode(hl.textContent), hl);
