@@ -193,18 +193,20 @@ body {
   .phase-desc { margin-left: 0; }
 }
 
-/* ========== 文字批注笔记系统 ========== */
+/* ========== 文字批注笔记系统（微信读书风格） ========== */
 
-/* 高亮文字 */
-.note-highlight {
-  background: rgba(210, 168, 255, 0.25);
-  border-bottom: 2px solid var(--purple);
+/* 段落虚线下划线标记 */
+.note-mark {
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  text-decoration-color: rgba(210, 168, 255, 0.55);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
   cursor: pointer;
-  border-radius: 2px;
-  transition: background 0.2s;
+  transition: text-decoration-color 0.2s;
 }
-.note-highlight:hover {
-  background: rgba(210, 168, 255, 0.45);
+.note-mark:hover {
+  text-decoration-color: rgba(210, 168, 255, 1);
 }
 
 /* 浮动添加笔记按钮 */
@@ -455,27 +457,38 @@ body {
 .note-panel-clear { color: var(--red) !important; border-color: rgba(248,81,73,0.3) !important; }
 .note-panel-clear:hover { background: rgba(248,81,73,0.1) !important; color: var(--red) !important; }
 
-/* 笔记 Tooltip */
+/* 笔记 Tooltip（弹出卡片） */
 #note-tooltip {
   position: absolute;
   z-index: 10001;
   background: var(--bg-card);
   border: 1px solid var(--purple);
-  border-radius: 10px;
-  padding: 14px 16px;
-  max-width: 320px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+  border-radius: 12px;
+  padding: 16px 18px;
+  width: 340px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.5);
   font-size: 14px;
   color: var(--text);
-  line-height: 1.6;
+  line-height: 1.7;
+  animation: tooltipIn 0.2s ease;
+}
+@keyframes tooltipIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 .note-tooltip-content {
   margin-bottom: 10px;
   white-space: pre-wrap;
+  word-break: break-word;
+}
+.note-tooltip-meta {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
 }
 .note-tooltip-actions {
   display: flex;
-  gap: 12px;
+  gap: 14px;
 }
 .note-tooltip-actions button {
   background: none;
@@ -483,12 +496,30 @@ body {
   color: var(--accent);
   cursor: pointer;
   font-size: 12px;
+  padding: 0;
 }
 .note-tooltip-actions button:hover { text-decoration: underline; }
 .note-tooltip-delete { color: var(--red) !important; }
 
-/* 响应式：面板在手机上全宽 */
+/* Toast 提示 */
+#note-toast {
+  position: fixed;
+  bottom: 80px;
+  right: 24px;
+  z-index: 11000;
+  background: #1a2e1a;
+  color: #3fb950;
+  border: 1px solid #238636;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+/* 响应式 */
 @media (max-width: 500px) {
   #note-panel { width: 100vw; right: -100vw; }
   #note-panel-toggle { right: 12px; bottom: 16px; width: 46px; height: 46px; }
+  #note-tooltip { width: calc(100vw - 32px); left: 16px !important; }
 }
