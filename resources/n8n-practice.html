@@ -3,37 +3,235 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>N8n 实战教程 — AI PM 学习中心</title>
-  <link rel="stylesheet" href="../style.css">
+  <title>N8n 实战教程 — 搭建天气工作流与 AI 智能体</title>
   <style>
-    body { max-width: 800px; margin: 0 auto; padding: 40px 24px; }
-    .back { color: var(--accent); text-decoration: none; font-size: 14px; display: inline-block; margin-bottom: 24px; }
-    .badge { font-size: 12px; padding: 4px 12px; border-radius: 20px; background: #1a2e1a; color: var(--green); border: 1px solid #238636; display: inline-block; margin-bottom: 16px; }
-    .coming { background: #161b22; border: 1px solid var(--border); border-radius: 12px; padding: 32px; text-align: center; margin: 32px 0; }
-    .coming h2 { color: var(--purple); font-size: 20px; margin-bottom: 12px; }
-    .coming p { color: var(--text-secondary); font-size: 15px; }
-    .original-link { background: #161b22; border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin: 20px 0; }
-    .original-link a { color: var(--accent); font-size: 15px; font-weight: 500; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0d1117; color: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; line-height: 1.8; max-width: 900px; margin: 0 auto; padding: 40px 24px; }
+    .back { color: #58a6ff; text-decoration: none; font-size: 14px; display: inline-block; margin-bottom: 20px; }
+    .back:hover { text-decoration: underline; }
+    .meta { font-size: 13px; color: #8b949e; margin-bottom: 32px; padding-bottom: 20px; border-bottom: 1px solid #21262d; }
+    h1 { font-size: 28px; font-weight: 700; color: #f0f6fc; margin-bottom: 8px; line-height: 1.3; }
+    h2 { font-size: 22px; font-weight: 600; color: #f0f6fc; margin-top: 40px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #21262d; }
+    h3 { font-size: 18px; font-weight: 600; color: #d2a8ff; margin-top: 28px; margin-bottom: 12px; }
+    p { margin-bottom: 16px; color: #c9d1d9; }
+    ul, ol { margin: 12px 0 16px 24px; color: #c9d1d9; }
+    li { margin-bottom: 8px; }
+    strong { color: #f0f6fc; }
+    .step-box { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 20px; margin: 20px 0; position: relative; }
+    .step-box .step-num { position: absolute; top: -12px; left: 16px; background: #238636; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; }
+    .step-box h4 { color: #3fb950; font-size: 16px; margin-bottom: 8px; padding-top: 4px; }
+    .tip { background: #1a1a2e; border-left: 3px solid #58a6ff; padding: 16px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+    .tip strong { color: #58a6ff; }
+    .workflow-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
+    .wf-card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px; }
+    .wf-card h4 { font-size: 15px; margin-bottom: 8px; }
+    .wf-card.wf { border-color: #1f6feb; }
+    .wf-card.wf h4 { color: #58a6ff; }
+    .wf-card.agent { border-color: #8957e5; }
+    .wf-card.agent h4 { color: #d2a8ff; }
+    pre { background: #0d1117; border: 1px solid #30363d; border-radius: 6px; padding: 16px; overflow-x: auto; margin: 16px 0; font-size: 13px; line-height: 1.5; color: #c9d1d9; }
+    code { font-family: 'SF Mono', Monaco, monospace; }
+    .highlight { background: #1a1a2e; border: 1px solid #30363d; border-radius: 8px; padding: 16px; margin: 20px 0; }
+    .original-link { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px; margin: 32px 0; }
+    .original-link a { color: #58a6ff; font-weight: 500; }
+    @media (max-width: 600px) { .workflow-compare { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
   <a href="../index.html" class="back">← 返回学习中心</a>
-  <div class="badge">资源摘要页</div>
-  <h1 style="font-size:26px; font-weight:700; color:var(--text); margin-bottom:8px;">N8n 实战教程</h1>
-  <p style="color:var(--text-secondary); margin-bottom:32px;">手把手搭建天气工作流与 AI 智能体的动手教程</p>
+  <div class="meta">AI PM 实战系列 · 基于 Jyothi Nookula 播客演示 · 原创中文教程</div>
+  <h1>🛠️ N8n 实战教程</h1>
+  <p style="color:#8b949e; font-size:15px; margin-bottom:32px;">搭建天气工作流与 AI 智能体 — 从零开始，不写代码</p>
 
-  <div class="coming">
-    <h2>🚧 内容制作中</h2>
-    <p>本页面正在翻译/整理中，暂时可以通过下方原始链接访问。</p>
+  <div class="tip">
+    <strong>📌 前置说明</strong><br>
+    本教程基于播客中 Jyothi Nookula 的演示。N8n 是一个<strong>低代码/无代码</strong>的自动化平台，你不需要写代码（实在需要时，可以让 ChatGPT 帮你写 JavaScript 片段）。<br><br>
+    <strong>注册</strong>：前往 <a href="https://n8n.io" style="color:#58a6ff;">n8n.io</a> 注册免费账号（Cloud 版免费试用，足够完成本教程）。
+  </div>
+
+  <!-- Part 1: Workflow -->
+  <h2>第一部分：搭建固定工作流（无智能）</h2>
+  <p>我们要搭建的工作流：<strong>获取洛杉矶天气 → 格式化成消息 → 发送邮件</strong>。每一步都是预先定义好的，没有任何"智能"。</p>
+
+  <div class="workflow-compare">
+    <div class="wf-card wf">
+      <h4>⚙️ 工作流特点</h4>
+      <ul style="font-size:14px;">
+        <li>步骤固定，全部执行</li>
+        <li>没有判断能力</li>
+        <li>适合重复性任务</li>
+        <li>可预测、可调试</li>
+      </ul>
+    </div>
+    <div class="wf-card agent">
+      <h4>🤖 智能体（对比）</h4>
+      <ul style="font-size:14px;">
+        <li>步骤动态，按需执行</li>
+        <li>有判断能力</li>
+        <li>适合开放式任务</li>
+        <li>更灵活但难调试</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="step-box">
+    <div class="step-num">1</div>
+    <h4>创建新工作流</h4>
+    <p>登录 N8n → 点击"Create Workflow"→ 命名为"天气邮件报告"。你会看到一个空白画布，中间有一个"Start here"触发节点。</p>
+  </div>
+
+  <div class="step-box">
+    <div class="step-num">2</div>
+    <h4>添加触发节点（Trigger）</h4>
+    <p>点击"Start here"→ 选择触发方式。我们先用手动触发（Manual Trigger），这样每次点击"Execute"就运行一次。实际使用时可以改成"Schedule Trigger"（每天定时运行）。</p>
+  </div>
+
+  <div class="step-box">
+    <div class="step-num">3</div>
+    <h4>添加 HTTP 请求节点（获取天气）</h4>
+    <p>点击触发节点右侧的 <code>+</code> → 搜索"HTTP Request"→ 选择 GET 方法，填入以下 URL：</p>
+    <pre>https://api.open-meteo.com/v1/forecast?latitude=34.05&longitude=-118.24&current=temperature_2m&timezone=America/Los_Angeles</pre>
+    <p>这是<strong>免费</strong>的天气 API（Open-Meteo），不需要 API Key。<code>34.05, -118.24</code> 是洛杉矶的经纬度。</p>
+    <p>点击"Execute Step"测试，你应该能看到返回的 JSON 数据，包含当前温度。</p>
+  </div>
+
+  <div class="step-box">
+    <div class="step-num">4</div>
+    <h4>添加代码节点（格式化消息）</h4>
+    <p>HTTP 请求返回的是原始 JSON，不方便阅读。添加一个"Code"节点来格式化：</p>
+    <pre>// 粘贴到 N8n Code 节点（JavaScript）
+const data = $input.first().json;
+const temp = data.current.temperature_2m;
+const message = `洛杉矶今天的温度是 ${temp}°C（当前）`;
+
+return [{
+  json: { message }
+}];</pre>
+    <p><strong>不会写代码？</strong> 把上面的需求用普通语言描述给 ChatGPT，让它生成 JavaScript 代码，然后粘贴进来就行。Jyothi 在播客里就是这么做的。</p>
+  </div>
+
+  <div class="step-box">
+    <div class="step-num">5</div>
+    <h4>添加 Gmail 节点（发送邮件）</h4>
+    <p>点击 <code>+</code> → 搜索"Gmail"→ 选择"Send Message"。首次使用需要连接你的 Google 账号（N8n 会引导你授权）。</p>
+    <ul>
+      <li><strong>To</strong>：填你的邮箱</li>
+      <li><strong>Subject</strong>：今日天气报告</li>
+      <li><strong>Message</strong>：拖入上一步的 <code>message</code> 变量</li>
+    </ul>
+    <p>点击"Execute Workflow"，你应该会收到一封天气邮件！</p>
+  </div>
+
+  <div class="highlight">
+    <p style="color:#d29922; font-weight:600;">🎉 第一部分完成！</p>
+    <p style="color:#c9d1d9; margin-top:8px;">你现在有一个<strong>固定工作流</strong>：每次运行都走完"触发 → 获取天气 → 格式化 → 发邮件"这 4 步。不管你想不想发邮件，它都会发。这就是"没有智能"的工作流。</p>
+  </div>
+
+  <!-- Part 2: Agent -->
+  <h2>第二部分：搭建 AI 智能体（有判断力）</h2>
+  <p>现在我们来搭建一个<strong>智能体工作流</strong>：用户用自然语言提问，智能体自己决定调用哪个工具。</p>
+
+  <div class="step-box">
+    <div class="step-num">1</div>
+    <h4>创建新工作流，添加聊天触发器</h4>
+    <p>新建工作流 → 命名为"天气 AI 智能体"→ 触发节点选择<strong>"Chat Trigger"</strong>（不是 Manual Trigger）。这样你可以通过聊天界面跟智能体对话。</p>
+  </div>
+
+  <div class="step-box">
+    <div class="step-num">2</div>
+    <h4>添加 AI 智能体节点</h4>
+    <p>点击 <code>+</code> → 搜索"AI Agent"→ 添加。N8n 会自动创建一个智能体节点，包含：</p>
+    <ul>
+      <li><strong>Chat Model</strong>：需要连接一个 LLM（推荐 GPT-4.1 mini 或 Claude Haiku，便宜够用）</li>
+      <li><strong>Memory</strong>：让智能体记住对话历史</li>
+      <li><strong>Tools</strong>：智能体可以使用的工具（我们接下来添加）</li>
+    </ul>
+  </div>
+
+  <div class="step-box">
+    <div class="step-num">3</div>
+    <h4>连接 LLM 模型</h4>
+    <p>点击智能体节点里的"Chat Model"→ 选择"OpenAI Chat Model"→ 填入你的 OpenAI API Key（需要在 <a href="https://platform.openai.com" style="color:#58a6ff;">platform.openai.com</a> 注册获取，有免费额度）。</p>
+    <p>选择模型：<code>gpt-4.1-mini</code>（便宜，响应快）。</p>
+  </div>
+
+  <div class="step-box">
+    <div class="step-num">4</div>
+    <h4>添加工具：天气查询</h4>
+    <p>在智能体节点的"Tools"部分，点击"Add Tool"→ 选择"HTTP Request"工具：</p>
+    <ul>
+      <li><strong>Name</strong>：get_weather</li>
+      <li><strong>Description</strong>：获取指定城市的当前天气信息。当用户询问天气时一定要使用此工具。</li>
+      <li><strong>Method</strong>：GET</li>
+      <li><strong>URL</strong>：<code>https://api.open-meteo.com/v1/forecast?latitude={{ $fromAI("latitude") }}&longitude={{ $fromAI("longitude") }}&current=temperature_2m&timezone=auto</code></li>
+    </ul>
+    <p><code>$fromAI()</code> 是 N8n 的智能参数——LLM 会根据用户问题自动填入纬度和经度。</p>
+  </div>
+
+  <div class="step-box">
+    <div class="step-num">5</div>
+    <h4>添加工具：发送邮件（可选）</h4>
+    <p>再添加一个工具 → 选择"Gmail: Send Message"→ 命名为 <code>send_email</code>，描述为"当用户要求发送邮件时使用此工具"。</p>
+  </div>
+
+  <div class="step-box">
+    <div class="step-num">6</div>
+    <h4>测试智能体！</h4>
+    <p>点击右下角的聊天图标 → 在聊天框输入：</p>
+    <div style="background:#0d1117; border:1px solid #30363d; border-radius:6px; padding:12px; margin:12px 0; color:#c9d1d9; font-style:italic;">
+      "洛杉矶今天的天气是什么？"
+    </div>
+    <p><strong>观察</strong>：智能体调用了 <code>get_weather</code> 工具 → 获取天气数据 → 返回温度。<strong>它没有调用 Gmail</strong>——因为它判断不需要发邮件。</p>
+    <p>再试一下：</p>
+    <div style="background:#0d1117; border:1px solid #30363d; border-radius:6px; padding:12px; margin:12px 0; color:#c9d1d9; font-style:italic;">
+      "把天气信息发送到我的邮箱"
+    </div>
+    <p><strong>观察</strong>：这次智能体调用了 Gmail 工具，发送了邮件。</p>
+  </div>
+
+  <div class="highlight">
+    <p style="color:#3fb950; font-weight:600;">🎉 第二部分完成！</p>
+    <p style="color:#c9d1d9; margin-top:8px;">你现在有一个<strong>AI 智能体</strong>：它根据用户的自然语言输入，<strong>自己判断</strong>该用哪个工具。你没有写任何"如果...就..."的逻辑，全是智能体自主决定的。这就是工作流和智能体的本质区别。</p>
+  </div>
+
+  <!-- Section: Key Insights -->
+  <h2>三、从实战中提炼的关键洞察</h2>
+
+  <div class="tip">
+    <strong>💡 洞察 1：工具描述（Description）极其重要</strong><br>
+    智能体根据工具的 Description 决定"要不要用这个工具"。如果描述不清晰，智能体可能用错工具，或者不用工具。这叫做"工具提示工程"——跟提示工程一样重要，但很多人忽略。
+  </div>
+
+  <div class="tip">
+    <strong>💡 洞察 2：智能体不是"更聪明"，而是"更有判断力"</strong><br>
+    智能体不会让天气查询变得更准确。它只是在"要不要查天气"和"要不要发邮件"之间做判断。如果这个判断对你有价值，用智能体；如果步骤固定，用工作流。
+  </div>
+
+  <div class="tip">
+    <strong>💡 洞察 3：先搭工作流，再加智能体</strong><br>
+    Jyothi 在播客里先搭工作流再搭智能体，这是对的。先理解"没有智能"的版本是怎么工作的，再加上智能体，你才能真正理解两者的区别。
+  </div>
+
+  <!-- Resources -->
+  <h2>四、推荐学习资源</h2>
+
+  <div class="original-link">
+    <a href="https://docs.n8n.io/" target="_blank">📖 N8n 官方文档（英文）</a>
+    <p style="font-size:13px; color:#8b949e; margin-top:8px;">最权威的参考文档，覆盖所有节点和功能的详细说明。</p>
   </div>
 
   <div class="original-link">
-    <a href="https://www.productcompass.pm/" target="_blank">📚 前往原始资源 →</a>
-    <p style="font-size:13px; color:var(--text-secondary); margin-top:6px;">本页面完整版即将上线，欢迎关注 GitHub 仓库更新。</p>
+    <a href="https://docs.n8ncn.io/" target="_blank">📖 N8n 中文文档</a>
+    <p style="font-size:13px; color:#8b949e; margin-top:8px;">完整的中文文档，覆盖核心概念、节点详解、部署指南。</p>
   </div>
 
-  <div style="margin-top:48px; padding-top:24px; border-top:1px solid var(--border); color:var(--text-secondary); font-size:13px; text-align:center;">
-    内容持续更新中 · <a href="../index.html" style="color:var(--accent);">返回首页</a>
+  <div class="original-link">
+    <a href="https://www.youtube.com/watch?v=6QzT3kQxXMc" target="_blank">🎥 N8n 零基础教程（YouTube）</a>
+    <p style="font-size:13px; color:#8b949e; margin-top:8px;">从安装到搭建第一个工作流，手把手教学。</p>
+  </div>
+
+  <div style="margin-top:48px; padding-top:24px; border-top:1px solid #21262d; color:#8b949e; font-size:13px; text-align:center;">
+    内容持续更新中 · <a href="../index.html" style="color:#58a6ff;">返回首页</a> · 原创内容 by WorkBuddy
   </div>
 </body>
 </html>

@@ -3,37 +3,189 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RAG 检索增强生成 — AI PM 学习中心</title>
-  <link rel="stylesheet" href="../style.css">
+  <title>RAG 检索增强生成 — AI PM 实用指南</title>
   <style>
-    body { max-width: 800px; margin: 0 auto; padding: 40px 24px; }
-    .back { color: var(--accent); text-decoration: none; font-size: 14px; display: inline-block; margin-bottom: 24px; }
-    .badge { font-size: 12px; padding: 4px 12px; border-radius: 20px; background: #1a2e1a; color: var(--green); border: 1px solid #238636; display: inline-block; margin-bottom: 16px; }
-    .coming { background: #161b22; border: 1px solid var(--border); border-radius: 12px; padding: 32px; text-align: center; margin: 32px 0; }
-    .coming h2 { color: var(--purple); font-size: 20px; margin-bottom: 12px; }
-    .coming p { color: var(--text-secondary); font-size: 15px; }
-    .original-link { background: #161b22; border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin: 20px 0; }
-    .original-link a { color: var(--accent); font-size: 15px; font-weight: 500; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0d1117; color: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; line-height: 1.8; max-width: 900px; margin: 0 auto; padding: 40px 24px; }
+    .back { color: #58a6ff; text-decoration: none; font-size: 14px; display: inline-block; margin-bottom: 20px; }
+    .back:hover { text-decoration: underline; }
+    .meta { font-size: 13px; color: #8b949e; margin-bottom: 32px; padding-bottom: 20px; border-bottom: 1px solid #21262d; }
+    h1 { font-size: 28px; font-weight: 700; color: #f0f6fc; margin-bottom: 8px; line-height: 1.3; }
+    h2 { font-size: 22px; font-weight: 600; color: #f0f6fc; margin-top: 40px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #21262d; }
+    h3 { font-size: 18px; font-weight: 600; color: #d2a8ff; margin-top: 28px; margin-bottom: 12px; }
+    p { margin-bottom: 16px; color: #c9d1d9; }
+    ul, ol { margin: 12px 0 16px 24px; color: #c9d1d9; }
+    li { margin-bottom: 8px; }
+    strong { color: #f0f6fc; }
+    .tip { background: #1a1a2e; border-left: 3px solid #58a6ff; padding: 16px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+    .tip strong { color: #58a6ff; }
+    .architecture { background: #161b22; border: 2px solid #30363d; border-radius: 12px; padding: 24px; margin: 24px 0; text-align: center; }
+    .architecture .step { display: inline-block; background: #0d1117; border: 1px solid #30363d; border-radius: 6px; padding: 8px 16px; margin: 4px; font-size: 14px; color: #c9d1d9; }
+    .architecture .arrow { color: #58a6ff; font-size: 18px; margin: 0 4px; }
+    .pattern-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
+    .pattern-card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px; }
+    .pattern-card h4 { color: #f0f6fc; font-size: 15px; margin-bottom: 8px; }
+    .pattern-card p { font-size: 14px; color: #8b949e; margin-bottom: 0; }
+    .pm-takeaway { background: #0d1a12; border: 1px solid #238636; border-radius: 8px; padding: 20px; margin: 24px 0; }
+    .pm-takeaway h4 { color: #3fb950; margin-bottom: 8px; }
+    .original-link { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px; margin: 32px 0; }
+    .original-link a { color: #58a6ff; font-weight: 500; }
+    @media (max-width: 600px) { .pattern-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
   <a href="../index.html" class="back">← 返回学习中心</a>
-  <div class="badge">资源摘要页</div>
-  <h1 style="font-size:26px; font-weight:700; color:var(--text); margin-bottom:8px;">RAG 检索增强生成</h1>
-  <p style="color:var(--text-secondary); margin-bottom:32px;">RAG 架构详解与 Anthropic 最佳实践中文精要</p>
+  <div class="meta">AI PM 核心技能系列 · RAG 系统实用指南 · 原创中文内容</div>
+  <h1>🔍 RAG 检索增强生成</h1>
+  <p style="color:#8b949e; font-size:15px; margin-bottom:32px;">给 PM 的 RAG 实用指南 — 理解原理、评估需求、设计产品</p>
 
-  <div class="coming">
-    <h2>🚧 内容制作中</h2>
-    <p>本页面正在翻译/整理中，暂时可以通过下方原始链接访问。</p>
+  <div class="tip">
+    <strong>📌 一句话解释 RAG</strong>：RAG = 让 LLM 在回答问题时，先去查你的专有资料，再根据查到的内容回答。这样既利用了 LLM 的语言能力，又避免了它"编造"答案。
+  </div>
+
+  <!-- Section 1: Problem -->
+  <h2>一、为什么需要 RAG？</h2>
+  <p>直接用 LLM（比如把公司文档全部贴进提示词）有三个问题：</p>
+  <ol>
+    <li><strong>上下文窗口有限</strong>：你塞不进几百份文档</li>
+    <li><strong>成本高</strong>：每次对话都要把文档内容发一遍，按 token 收费</li>
+    <li><strong>信息过时</strong>：LLM 训练完就不再更新知识了，它不知道你公司上周发生的事</li>
+  </ol>
+  <p>RAG 就是为了解决这三个问题而生的。</p>
+
+  <!-- Section 2: How it works -->
+  <h2>二、RAG 是怎么工作的？</h2>
+
+  <div class="architecture">
+    <p style="color:#8b949e; font-size:13px; margin-bottom:16px;"><strong>预处理阶段（离线）</strong></p>
+    <div>
+      <span class="step">📄 你的文档</span>
+      <span class="arrow">→</span>
+      <span class="step">✂️ 切成片段</span>
+      <span class="arrow">→</span>
+      <span class="step">🔢 转成向量（Embedding）</span>
+      <span class="arrow">→</span>
+      <span class="step">💾 存入向量数据库</span>
+    </div>
+  </div>
+
+  <div class="architecture" style="border-color:#1f6feb;">
+    <p style="color:#8b949e; font-size:13px; margin-bottom:16px;"><strong>查询阶段（在线）</strong></p>
+    <div>
+      <span class="step">❓ 用户提问</span>
+      <span class="arrow">→</span>
+      <span class="step">🔢 问题转成向量</span>
+      <span class="arrow">→</span>
+      <span class="step">🔍 在向量数据库找最相似的文档片段</span>
+      <span class="arrow">→</span>
+      <span class="step">🤖 LLM 根据检索到的片段回答</span>
+    </div>
+  </div>
+
+  <div class="tip">
+    <strong>💡 关键理解</strong>：RAG 不是把"所有知识"塞进 LLM，而是<strong>在回答每个问题时，只检索最相关的那几段</strong>。就像开卷考试——你不需要背整本书，只需要知道去哪一页找答案。
+  </div>
+
+  <!-- Section 3: Detailed steps -->
+  <h2>三、RAG 的详细步骤（PM 视角）</h2>
+
+  <h3>Step 1：文档切片（Chunking）</h3>
+  <p>把文档切成小片段（通常 500-1000 字符）。这看起来简单，但很关键：</p>
+  <ul>
+    <li>切太大 → 噪音多，检索不精准</li>
+    <li>切太小 → 丢失上下文，回答不完整</li>
+    <li><strong>产品决策</strong>：你的文档是什么类型？客服 FAQ 适合按 Q&A 对切；技术文档适合按章节切；PDF 要注意表格和图片的处理</li>
+  </ul>
+
+  <h3>Step 2：向量化（Embedding）</h3>
+  <p>用 Embedding 模型把文字转成数字向量（一串几百到几千维的数字）。语义相近的文字，向量也相近。</p>
+  <p><strong>常用模型</strong>：OpenAI 的 <code>text-embedding-3-small</code>（便宜、好用）、Cohere Embed、开源的 BGE 模型。</p>
+
+  <h3>Step 3：存储（Vector Database）</h3>
+  <p>把向量存起来，支持"根据向量相似度搜索"。常用数据库：</p>
+  <ul>
+    <li><strong>Pinecone</strong>：托管服务，最简单，免费版可用</li>
+    <li><strong>Chroma</strong>：开源，本地运行，适合 prototyping</li>
+    <li><strong>Weaviate / Qdrant</strong>：开源，功能更强，适合生产环境</li>
+  </ul>
+
+  <h3>Step 4：检索（Retrieval）</h3>
+  <p>用户提问 → 转成向量 → 在数据库中找最相似的 Top-K 个片段（通常 K=3~10）。</p>
+  <p><strong>PM 要注意</strong>：检索质量直接决定回答质量。如果检索出来的片段不相关，LLM 再强也回答不好。这叫做"垃圾进，垃圾出"。</p>
+
+  <h3>Step 5：生成（Generation）</h3>
+  <p>把检索到的片段 + 用户问题一起发给 LLM，让它基于片段回答。<strong>关键提示技巧</strong>：告诉 LLM "如果参考资料中没有相关信息，就说不知道，不要编造"。</p>
+
+  <!-- Section 4: Variants -->
+  <h2>四、RAG 的进化版本</h2>
+  <p>基础版 RAG（Vanilla RAG）效果有限。生产环境中常用这些改进版本：</p>
+
+  <div class="pattern-grid">
+    <div class="pattern-card">
+      <h4 style="color:#58a6ff;">🔄 自适应 RAG（Adaptive RAG）</h4>
+      <p>根据问题类型动态选择检索策略。简单问题少检索，复杂问题多检索。也可以用 LLM 先"改写"用户问题，提高检索准确率。</p>
+    </div>
+    <div class="pattern-card">
+      <h4 style="color:#58a6ff;">🔀 混合 RAG（Hybrid RAG）</h4>
+      <p>结合关键词搜索（BM25）+ 语义搜索（向量检索），取长补短。关键词搜索擅长精确匹配，语义搜索擅长理解意图。</p>
+    </div>
+    <div class="pattern-card">
+      <h4 style="color:#d2a8ff;">🤔 纠正性 RAG（CRAG）</h4>
+      <p>检索后先评估检索结果的质量，如果质量低就去网络搜索补充信息。相当于给 RAG 加了一个"自我怀疑"机制。</p>
+    </div>
+    <div class="pattern-card">
+      <h4 style="color:#d2a8ff;">📚 图 RAG（Graph RAG）</h4>
+      <p>用知识图谱增强 RAG，捕捉实体之间的关系。适合需要处理复杂关联关系的场景（比如"某公司的供应链上下游有哪些企业"）。微软开源了 GraphRAG 框架。</p>
+    </div>
+  </div>
+
+  <!-- Section 5: PM Takeaways -->
+  <h2>五、PM 必备：RAG 产品的评估框架</h2>
+
+  <div class="pm-takeaway">
+    <h4>✅ 你的产品需要 RAG 吗？</h4>
+    <p style="color:#c9d1d9;">问自己：LLM 的通用知识够用吗？需要引用来源吗？知识会更新吗？如果三个都是"是"，你需要 RAG。</p>
+  </div>
+
+  <div class="pm-takeaway">
+    <h4>✅ 怎么评估 RAG 系统质量？</h4>
+    <ul style="color:#c9d1d9;">
+      <li><strong>检索准确率</strong>：检索出来的片段是否相关？（人工评估 or LLM 评估）</li>
+      <li><strong>回答准确率</strong>：最终回答是否正确？（需要标准答案数据集）</li>
+      <li><strong>拒绝率</strong>：当资料中没有答案时，系统是否会拒绝回答（而不是编造）？</li>
+    </ul>
+  </div>
+
+  <div class="pm-takeaway">
+    <h4>✅ 常见坑</h4>
+    <ul style="color:#c9d1d9;">
+      <li>文档切片策略不当，导致上下文丢失</li>
+      <li>检索结果没有按相关性排序，最相关的片段排在后面</li>
+      <li>没有告诉 LLM "不知道就说不知道"，导致幻觉</li>
+      <li>向量数据库没有更新机制，过时信息一直存在</li>
+    </ul>
+  </div>
+
+  <!-- Section 6: Resources -->
+  <h2>六、推荐学习资源</h2>
+
+  <div class="original-link">
+    <a href="https://www.youtube.com/watch?v=T-D1OfcMzGw" target="_blank">🎥 LangChain RAG 全套教程（YouTube）</a>
+    <p style="font-size:13px; color:#8b949e; margin-top:8px;">从零开始搭建 RAG 系统，1 小时讲清楚所有概念。有代码但不复杂。</p>
   </div>
 
   <div class="original-link">
-    <a href="https://www.productcompass.pm/" target="_blank">📚 前往原始资源 →</a>
-    <p style="font-size:13px; color:var(--text-secondary); margin-top:6px;">本页面完整版即将上线，欢迎关注 GitHub 仓库更新。</p>
+    <a href="https://python.langchain.com/docs/tutorials/rag/" target="_blank">📖 LangChain RAG 官方教程</a>
+    <p style="font-size:13px; color:#8b949e; margin-top:8px;">用 LangChain 框架搭建 RAG 的技术教程。有编程基础可以跟着做。</p>
   </div>
 
-  <div style="margin-top:48px; padding-top:24px; border-top:1px solid var(--border); color:var(--text-secondary); font-size:13px; text-align:center;">
-    内容持续更新中 · <a href="../index.html" style="color:var(--accent);">返回首页</a>
+  <div class="original-link">
+    <a href="https://www.pinecone.io/learn/retrieval-augmented-generation/" target="_blank">📖 Pinecone：RAG 完全指南（英文）</a>
+    <p style="font-size:13px; color:#8b949e; margin-top:8px;">向量数据库公司 Pinecone 出的 RAG 教程，从原理到实践，非常系统。</p>
+  </div>
+
+  <div style="margin-top:48px; padding-top:24px; border-top:1px solid #21262d; color:#8b949e; font-size:13px; text-align:center;">
+    内容持续更新中 · <a href="../index.html" style="color:#58a6ff;">返回首页</a> · 原创内容 by WorkBuddy
   </div>
 </body>
 </html>

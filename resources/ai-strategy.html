@@ -3,37 +3,204 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI 产品战略 — AI PM 学习中心</title>
-  <link rel="stylesheet" href="../style.css">
+  <title>AI 产品战略 — AI PM 的高阶思维框架</title>
   <style>
-    body { max-width: 800px; margin: 0 auto; padding: 40px 24px; }
-    .back { color: var(--accent); text-decoration: none; font-size: 14px; display: inline-block; margin-bottom: 24px; }
-    .badge { font-size: 12px; padding: 4px 12px; border-radius: 20px; background: #1a2e1a; color: var(--green); border: 1px solid #238636; display: inline-block; margin-bottom: 16px; }
-    .coming { background: #161b22; border: 1px solid var(--border); border-radius: 12px; padding: 32px; text-align: center; margin: 32px 0; }
-    .coming h2 { color: var(--purple); font-size: 20px; margin-bottom: 12px; }
-    .coming p { color: var(--text-secondary); font-size: 15px; }
-    .original-link { background: #161b22; border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin: 20px 0; }
-    .original-link a { color: var(--accent); font-size: 15px; font-weight: 500; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0d1117; color: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; line-height: 1.8; max-width: 900px; margin: 0 auto; padding: 40px 24px; }
+    .back { color: #58a6ff; text-decoration: none; font-size: 14px; display: inline-block; margin-bottom: 20px; }
+    .back:hover { text-decoration: underline; }
+    .meta { font-size: 13px; color: #8b949e; margin-bottom: 32px; padding-bottom: 20px; border-bottom: 1px solid #21262d; }
+    h1 { font-size: 28px; font-weight: 700; color: #f0f6fc; margin-bottom: 8px; line-height: 1.3; }
+    h2 { font-size: 22px; font-weight: 600; color: #f0f6fc; margin-top: 40px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #21262d; }
+    h3 { font-size: 18px; font-weight: 600; color: #d2a8ff; margin-top: 28px; margin-bottom: 12px; }
+    p { margin-bottom: 16px; color: #c9d1d9; }
+    ul, ol { margin: 12px 0 16px 24px; color: #c9d1d9; }
+    li { margin-bottom: 8px; }
+    strong { color: #f0f6fc; }
+    .framework-box { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 20px; margin: 20px 0; }
+    .framework-box h4 { color: #3fb950; font-size: 16px; margin-bottom: 8px; }
+    .tip { background: #1a1a2e; border-left: 3px solid #58a6ff; padding: 16px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+    .tip strong { color: #58a6ff; }
+    .strategy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
+    .strategy-card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px; }
+    .strategy-card h4 { font-size: 15px; margin-bottom: 8px; }
+    .strategy-card p { font-size: 14px; color: #8b949e; margin-bottom: 0; }
+    .decision-tree { background: #0d1a2e; border: 1px solid #1f6feb; border-radius: 8px; padding: 20px; margin: 24px 0; }
+    .decision-tree h4 { color: #58a6ff; margin-bottom: 12px; }
+    .original-link { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px; margin: 32px 0; }
+    .original-link a { color: #58a6ff; font-weight: 500; }
+    @media (max-width: 600px) { .strategy-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
   <a href="../index.html" class="back">← 返回学习中心</a>
-  <div class="badge">资源摘要页</div>
-  <h1 style="font-size:26px; font-weight:700; color:var(--text); margin-bottom:8px;">AI 产品战略</h1>
-  <p style="color:var(--text-secondary); margin-bottom:32px;">AI 战略框架、产品分发框架中文摘要</p>
+  <div class="meta">AI PM 高阶思维系列 · 产品战略框架 · 原创中文内容</div>
+  <h1>🧭 AI 产品战略</h1>
+  <p style="color:#8b949e; font-size:15px; margin-bottom:32px;">AI PM 的高阶思维框架 — 何时用 AI、如何用 AI、如何建立竞争优势</p>
 
-  <div class="coming">
-    <h2>🚧 内容制作中</h2>
-    <p>本页面正在翻译/整理中，暂时可以通过下方原始链接访问。</p>
+  <div class="tip">
+    <strong>📌 本文解决的核心问题</strong><br>
+    AI 产品战略不是"我们要用 AI"，而是：<strong>AI 到底能解决什么传统方法解决不了的问题？用户愿不愿意为此付钱？竞争对手能不能轻易复制？</strong>这篇文章给你一套思维框架。
+  </div>
+
+  <!-- Section 1: When to use AI -->
+  <h2>一、何时该用 AI？（决策框架）</h2>
+  <p>很多产品团队"为了用 AI 而用 AI"，结果是：体验没提升、成本增加了、用户还不信任。正确的决策框架是：</p>
+
+  <div class="decision-tree">
+    <h4>🎯 AI 适用性决策树</h4>
+    <ol>
+      <li><strong>传统方法能解决吗？</strong><br>能 → 不要用 AI，传统方法更可预测、更便宜、更易调试<br>不能 → 继续判断</li>
+      <li style="margin-top:12px;"><strong>问题是"预测/生成"类的吗？</strong><br>AI 擅长：从数据中找模式、生成内容、处理非结构化数据（文字/图片/语音）<br>不擅长：精确计算、严格的逻辑推理、需要 100% 准确的场景</li>
+      <li style="margin-top:12px;"><strong>有足够的训练/参考数吗？</strong><br>没有 → AI 效果会很差，先解决数据问题</li>
+      <li style="margin-top:12px;"><strong>用户能容忍错误吗？</strong><br>不能（如医疗诊断、金融交易）→ 需要人工审核环节，或者不用 AI<br>能（如推荐系统、客服草稿）→ AI 合适</li>
+    </ol>
+  </div>
+
+  <!-- Section 2: AI Product Strategy Framework -->
+  <h2>二、AI 产品战略框架</h2>
+
+  <div class="framework-box">
+    <h4>框架 1：AI 价值杠杆（Value Lever）</h4>
+    <p>AI 能在以下 4 个维度创造价这里：</p>
+    <ul>
+      <li><strong>个性化</strong>：每个用户得到定制化的体验（如 TikTok 的推荐算法）</li>
+      <li><strong>自动化</strong>：把人力密集型任务自动化（如客服 AI、代码补全）</li>
+      <li><strong>洞察</strong>：从海量数据中发现人类看不到的模式（如金融风控、医疗影像分析）</li>
+      <li><strong>创造力增强</strong>：帮助人类更快更好地创作（如 AI 辅助写作、设计）</li>
+    </ul>
+    <p style="margin-top:12px;"><strong>战略问题</strong>：你的产品主要靠哪个杠杆？能不能同时用多个？</p>
+  </div>
+
+  <div class="framework-box">
+    <h4>框架 2：AI 护城河（Moat）</h4>
+    <p>AI 产品的竞争优势来自哪里？光用 GPT-4 API 是不够的，因为竞争对手也能用。</p>
+    <ul>
+      <li><strong>数据护城河</strong>：你有的数据竞争对手没有（如历史用户行为数据）</li>
+      <li><strong>用户护城河</strong>：用户越多 → 数据越多 → 产品越好 → 更多用户（网络效应）</li>
+      <li><strong>集成护城河</strong>：AI 功能深度集成到用户工作流中，切换成本高</li>
+      <li><strong>品牌护城河</strong>：用户对 AI 输出的信任（如 AI 辅助诊断，医院更愿意用有品牌背书的产品）</li>
+    </ul>
+    <p style="margin-top:12px;"><strong>战略问题</strong>：你的 AI 产品的护城河是什么？如果竞争对手明天用同样的基础模型做一个类似产品，你还能赢吗？</p>
+  </div>
+
+  <div class="framework-box">
+    <h4>框架 3：AI 产品成熟度曲线</h4>
+    <p>AI 产品的演进路径：</p>
+    <ol>
+      <li><strong>辅助阶段</strong>：AI 生成草稿，人工审核（如 AI 辅助写客服回复）</li>
+      <li><strong>自动化阶段</strong>：AI 直接执行，人工只在异常时介入（如 AI 自动处理简单退款）</li>
+      <li><strong>自主阶段</strong>：AI 完全自主运行（如 AI 智能体自动完成整个任务）</li>
+    </ol>
+    <p style="margin-top:12px;"><strong>战略问题</strong>：你的产品现在在哪个阶段？下一步往哪走？用户信任度够不够支撑更自主的 AI？</p>
+  </div>
+
+  <!-- Section 3: Strategy in Practice -->
+  <h2>三、AI 产品战略实战案例</h2>
+
+  <div class="strategy-grid">
+    <div class="strategy-card" style="border-color:#3fb950;">
+      <h4 style="color:#3fb950;">✅ 好例子：GitHub Copilot</h4>
+      <p>价值杠杆：自动化（代码补全）+ 创造力增强。护城河： deeply 集成到开发者工作流，用户越多反馈越多，模型越准。</p>
+    </div>
+    <div class="strategy-card" style="border-color:#d29922;">
+      <h4 style="color:#d29922;">⚠️ 警示：AI 拍照搜题 App</h4>
+      <p>技术可行，但战略问题：用户使用频率低（做完题就不用了），护城河薄（竞争对手用同样的基础模型），政策风险高。</p>
+    </div>
+    <div class="strategy-card" style="border-color:#58a6ff;">
+      <h4 style="color:#58a6ff;">✅ 好例子：Notion AI</h4>
+      <p>价值杠杆：创造力增强。护城河：已经有的大量用户文档数据，深度集成到笔记工作流。战略清晰：不自己做基础模型，用最好的基础模型 + 做好产品层。</p>
+    </div>
+    <div class="strategy-card" style="border-color:#d29922;">
+      <h4 style="color:#d29922;">⚠️ 警示："AI + 一切"</h4>
+      <p>很多产品把 AI 当噱头，实际体验不如传统方法。战略问题：AI 是核心功能还是营销标签？用户愿不愿意为 AI 功能付钱？</p>
+    </div>
+  </div>
+
+  <!-- Section 4: Building AI Product Team -->
+  <h2>四、如何建立 AI 产品团队</h2>
+
+  <div class="framework-box">
+    <h4>核心角色</h4>
+    <ul>
+      <li><strong>AI PM</strong>：你。负责产品方向、需求优先级、AI 功能设计</li>
+      <li><strong>ML/AI 工程师</strong>：实现模型集成、优化推理性能、搭建评估系统</li>
+      <li><strong>数据科学家</strong>：分析用户数据、定义成功指标、做 A/B 测试</li>
+      <li><strong>提示工程师</strong>（可选）：如果提示工程工作量大的话可以专人做，否则 PM 兼</li>
+    </ul>
+  </div>
+
+  <div class="tip">
+    <strong>💡 团队搭建建议</strong><br>
+    <ul style="margin-top:8px;">
+      <li><strong>早期</strong>：PM + 1 个全栈工程师（会用 LLM API 就行）+ 1 个 ML 工程师（兼职也行）。不要一开始就招 10 个人。</li>
+      <li><strong>成长期</strong>：增加数据科学家（负责 Evals）、提示工程师（如果提示工程变复杂）、UX 设计师（AI 功能的用户体验跟传统软件很不一样）。</li>
+      <li><strong>避免的坑</strong>：不要招一整个 ML 研究团队。大多数 AI 产品用的是基础模型 API，不需要从头训练模型。你的竞争优势在产品层，不在模型层。</li>
+    </ul>
+  </div>
+
+  <!-- Section 5: Key Metrics -->
+  <h2>五、AI 产品的关键指标</h2>
+
+  <div class="strategy-grid">
+    <div class="strategy-card">
+      <h4 style="color:#58a6ff;">产品层指标</h4>
+      <ul style="font-size:14px;">
+        <li>功能使用率（有多少用户在用 AI 功能）</li>
+        <li>任务完成率（AI 是否真的解决了用户问题）</li>
+        <li>用户满意度（NPS 或 CSAT）</li>
+        <li>留存率（用户会不会回来再用）</li>
+      </ul>
+    </div>
+    <div class="strategy-card">
+      <h4 style="color:#3fb950;">AI 层指标</h4>
+      <ul style="font-size:14px;">
+        <li>评估分数（Evals 分数，见上一篇）</li>
+        <li>幻觉率（输出错误信息的比例）</li>
+        <li>拒绝率（AI 说"我不知道"的比例）</li>
+        <li>成本 per 请求（每次 API 调用的成本）</li>
+      </ul>
+    </div>
+    <div class="strategy-card">
+      <h4 style="color:#d2a8ff;">业务层指标</h4>
+      <ul style="font-size:14px;">
+        <li>收入影响（AI 功能是否带来了更多付费）</li>
+        <li>成本节省（AI 是否减少了人工成本）</li>
+        <li>效率提升（任务完成速度快了多少）</li>
+        <li>McKinsey 底线改善（最终：利润有没有增加）</li>
+      </ul>
+    </div>
+    <div class="strategy-card">
+      <h4 style="color:#d29922;">⚠️ 虚荣指标（不要只看这些）</h4>
+      <ul style="font-size:14px;">
+        <li>模型参数数量（跟产品成功无关）</li>
+        <li>API 调用次数（没有区分好坏使用）</li>
+        <li>"我们有 AI"（用户不在乎你怎么实现的）</li>
+        <li>准确率 99%（如果评估数据集不真实，这个数字没意义）</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Section 6: Resources -->
+  <h2>六、推荐学习资源</h2>
+
+  <div class="original-link">
+    <a href="https://www.productcompass.pm/p/ai-product-strategy" target="_blank">📖 Paweł Huryn：AI 产品战略（英文）</a>
+    <p style="font-size:13px; color:#8b949e; margin-top:8px;">专门给 PM 写的 AI 产品战略框架，覆盖差异化策略、进入市场策略等。</p>
   </div>
 
   <div class="original-link">
-    <a href="https://www.productcompass.pm/" target="_blank">📚 前往原始资源 →</a>
-    <p style="font-size:13px; color:var(--text-secondary); margin-top:6px;">本页面完整版即将上线，欢迎关注 GitHub 仓库更新。</p>
+    <a href="https://hbr.org/2023/06/an-ai-strategy-for-your-business" target="_blank">📖 Harvard Business Review：AI 商业战略</a>
+    <p style="font-size:13px; color:#8b949e; margin-top:8px;">HBR 关于企业 AI 战略的框架性文章，适合高层视角。</p>
   </div>
 
-  <div style="margin-top:48px; padding-top:24px; border-top:1px solid var(--border); color:var(--text-secondary); font-size:13px; text-align:center;">
-    内容持续更新中 · <a href="../index.html" style="color:var(--accent);">返回首页</a>
+  <div class="original-link">
+    <a href="https://a16z.com/ai-canon/" target="_blank">📖 a16z：AI Canon（AI 经典文章合集）</a>
+    <p style="font-size:13px; color:#8b949e; margin-top:8px;">Andreessen Horowitz 整理的 AI 战略和投资主题文章合集，质量很高。</p>
+  </div>
+
+  <div style="margin-top:48px; padding-top:24px; border-top:1px solid #21262d; color:#8b949e; font-size:13px; text-align:center;">
+    内容持续更新中 · <a href="../index.html" style="color:#58a6ff;">返回首页</a> · 原创内容 by WorkBuddy
   </div>
 </body>
 </html>

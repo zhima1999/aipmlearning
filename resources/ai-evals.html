@@ -3,37 +3,196 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI 评估系统（Evals） — AI PM 学习中心</title>
-  <link rel="stylesheet" href="../style.css">
+  <title>AI 评估系统（Evals）— AI PM 不能外包的核心职责</title>
   <style>
-    body { max-width: 800px; margin: 0 auto; padding: 40px 24px; }
-    .back { color: var(--accent); text-decoration: none; font-size: 14px; display: inline-block; margin-bottom: 24px; }
-    .badge { font-size: 12px; padding: 4px 12px; border-radius: 20px; background: #1a2e1a; color: var(--green); border: 1px solid #238636; display: inline-block; margin-bottom: 16px; }
-    .coming { background: #161b22; border: 1px solid var(--border); border-radius: 12px; padding: 32px; text-align: center; margin: 32px 0; }
-    .coming h2 { color: var(--purple); font-size: 20px; margin-bottom: 12px; }
-    .coming p { color: var(--text-secondary); font-size: 15px; }
-    .original-link { background: #161b22; border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin: 20px 0; }
-    .original-link a { color: var(--accent); font-size: 15px; font-weight: 500; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0d1117; color: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; line-height: 1.8; max-width: 900px; margin: 0 auto; padding: 40px 24px; }
+    .back { color: #58a6ff; text-decoration: none; font-size: 14px; display: inline-block; margin-bottom: 20px; }
+    .back:hover { text-decoration: underline; }
+    .meta { font-size: 13px; color: #8b949e; margin-bottom: 32px; padding-bottom: 20px; border-bottom: 1px solid #21262d; }
+    h1 { font-size: 28px; font-weight: 700; color: #f0f6fc; margin-bottom: 8px; line-height: 1.3; }
+    h2 { font-size: 22px; font-weight: 600; color: #f0f6fc; margin-top: 40px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #21262d; }
+    h3 { font-size: 18px; font-weight: 600; color: #d2a8ff; margin-top: 28px; margin-bottom: 12px; }
+    p { margin-bottom: 16px; color: #c9d1d9; }
+    ul, ol { margin: 12px 0 16px 24px; color: #c9d1d9; }
+    li { margin-bottom: 8px; }
+    strong { color: #f0f6fc; }
+    .why-box { background: #1a0d2e; border: 2px solid #8957e5; border-radius: 8px; padding: 20px; margin: 24px 0; }
+    .why-box h4 { color: #d2a8ff; }
+    .eval-type { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 20px; margin: 20px 0; }
+    .eval-type h4 { color: #3fb950; font-size: 16px; margin-bottom: 8px; }
+    .tip { background: #1a1a2e; border-left: 3px solid #58a6ff; padding: 16px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+    .tip strong { color: #58a6ff; }
+    .framework { background: #0d1a2e; border: 1px solid #1f6feb; border-radius: 8px; padding: 20px; margin: 24px 0; }
+    .framework h4 { color: #58a6ff; margin-bottom: 12px; }
+    pre { background: #0d1117; border: 1px solid #30363d; border-radius: 6px; padding: 16px; overflow-x: auto; margin: 16px 0; font-size: 13px; line-height: 1.5; color: #c9d1d9; }
+    code { font-family: 'SF Mono', Monaco, monospace; color: #ff7b72; }
+    .original-link { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px; margin: 32px 0; }
+    .original-link a { color: #58a6ff; font-weight: 500; }
   </style>
 </head>
 <body>
   <a href="../index.html" class="back">← 返回学习中心</a>
-  <div class="badge">资源摘要页</div>
-  <h1 style="font-size:26px; font-weight:700; color:var(--text); margin-bottom:8px;">AI 评估系统（Evals）</h1>
-  <p style="color:var(--text-secondary); margin-bottom:32px;">hamel.dev Evals FAQ 精要 + AI PM 评估体系指南</p>
+  <div class="meta">AI PM 核心技能系列 · Evals 评估体系指南 · 原创中文内容</div>
+  <h1>📊 AI 评估系统（Evals）</h1>
+  <p style="color:#8b949e; font-size:15px; margin-bottom:32px;">AI PM 不能外包给工程师的核心职责 — 如何判断你的 AI 产品是否真的在起作用</p>
 
-  <div class="coming">
-    <h2>🚧 内容制作中</h2>
-    <p>本页面正在翻译/整理中，暂时可以通过下方原始链接访问。</p>
+  <div class="why-box">
+    <h4>⚠️ 为什么 Evals 是 AI PM 的核心职责？</h4>
+    <p style="color:#c9d1d9; margin-top:12px;">McKinsey 发现 <strong>78% 的公司在使用生成式 AI，但同样多的公司报告没有底线改善</strong>。核心原因之一就是<strong>不会评估 AI 是否真的有效</strong>。</p>
+    <p style="color:#c9d1d9; margin-top:8px;">传统软件的输出是确定的（1+1 永远等于 2）。AI 的输出是概率性的（同样的问题，每次回答可能不同）。<strong>你不能"测试"AI，你必须"评估"AI。</strong>这不是工程师能单独做的事——只有 PM 知道"什么算好答案"。</p>
+  </div>
+
+  <!-- Section 1: What is Eval -->
+  <h2>一、什么是 AI Eval（评估）？</h2>
+  <p><strong>Eval = Evaluation（评估）</strong>。就是一套系统化的方法，用来判断 AI 的输出质量。</p>
+  <p>传统软件的测试：输入 A → 预期输出 B → 实际输出是 B？✅ 通过。</p>
+  <p>AI 的评估：输入 A → 输出可能是 B、C 或 D（都是合理答案）→ <strong>哪个答案更好？好多少？</strong></p>
+
+  <div class="tip">
+    <strong>💡 关键理解</strong>：AI 评估的核心挑战是<strong>没有唯一正确答案</strong>。客服回复可以是不同风格但都正确；摘要可以是不同措辞但都准确。你需要定义"什么是好"，而不是"什么是对"。
+  </div>
+
+  <!-- Section 2: Types of Evals -->
+  <h2>二、AI 评估的 4 种类型</h2>
+
+  <div class="eval-type">
+    <h4>1. 确定性评估（Deterministic Evals）</h4>
+    <p><strong>适用场景</strong>：有标准答案的任务（比如"提取这段文字中的日期"）。</p>
+    <p><strong>方法</strong>：直接比对输出和标准答案。可以用精确匹配、或者允许一定容错的模糊匹配。</p>
+    <p><strong>例子</strong>：用户问"我的订单号是多少"，AI 回答"ORDER-12345"——跟数据库里的订单号比对，完全一致才算对。</p>
+  </div>
+
+  <div class="eval-type">
+    <h4>2. LLM 作为裁判（LLM-as-Judge）</h4>
+    <p><strong>适用场景</strong>：没有标准答案的任务（比如"写一段客服回复"、"总结这篇文章"）。</p>
+    <p><strong>方法</strong>：用另一个 LLM（通常是更强的模型，如 GPT-4）来评分。给它评分标准（Rubric），让它给输出打分。</p>
+    <p><strong>例子</strong>：让 GPT-4 根据"礼貌性、准确性、完整性"三个维度，给客服回复打分（1-5 分）。</p>
+    <div class="tip" style="margin-top:12px;">
+      <strong>⚠️ 注意</strong>：LLM 作为裁判也有偏差（可能偏好更长的回答、可能评分不一致）。最好跟人工评估对比校准。
+    </div>
+  </div>
+
+  <div class="eval-type">
+    <h4>3. 人工评估（Human Eval）</h4>
+    <p><strong>适用场景</strong>：上线前的最终质量把关，或者校准自动评估系统。</p>
+    <p><strong>方法</strong>：让人工评审员根据评分标准对输出打分。可以是一致性评分（Likert Scale），也可以是比较评分（A 和 B 哪个更好）。</p>
+    <p><strong>关键</strong>：评审员必须经过培训，理解评分标准。否则不同评审员的打分可能差异很大。</p>
+  </div>
+
+  <div class="eval-type">
+    <h4>4. A/B 测试（线上评估）</h4>
+    <p><strong>适用场景</strong>：已经上线的功能，比较不同版本的效果。</p>
+    <p><strong>方法</strong>：把用户随机分成两组，一组用版本 A，一组用版本 B，比较业务指标（如转化率、用户满意度）。</p>
+    <p><strong>例子</strong>：版本 A 用 GPT-3.5，版本 B 用 GPT-4，看哪个版本的客服对话解决率更高。</p>
+  </div>
+
+  <!-- Section 3: Building Eval System -->
+  <h2>三、如何搭建 AI 评估系统（PM 版）</h2>
+
+  <div class="framework">
+    <h4>📋 第一步：定义"什么是好"（评分标准 / Rubric）</h4>
+    <p>这是<strong>最重要的一步</strong>，也是只有 PM 能做的事。你不能只说"要准确"，要具体定义：</p>
+    <pre>评分标准示例（客服 AI）：
+✅ 好答案：
+- 准确回答了用户问题（不编造）
+- 语气礼貌、专业
+- 提供了具体的解决步骤（不只是"请联系客服"）
+- 长度适中（50-150 字）
+
+❌ 坏答案：
+- 包含错误信息
+- 语气生硬 or 过于随意
+- 没有实质内容
+- 过长（用户不会看完）</pre>
+  </div>
+
+  <div class="framework">
+    <h4>📋 第二步：创建评估数据集（Eval Dataset）</h4>
+    <p>收集一批有代表性的用户输入和（可选）标准答案。数据集大小：</p>
+    <ul>
+      <li><strong>起步阶段</strong>：50-100 条（覆盖主要场景和边缘情况）</li>
+      <li><strong>成熟阶段</strong>：500+ 条，定期更新</li>
+    </ul>
+    <p><strong>数据来源</strong>：历史用户 query、内部人工设计的测试用例、生产环境中的真实样本。</p>
+  </div>
+
+  <div class="framework">
+    <h4>📋 第三步：选择评估方法</h4>
+    <ul>
+      <li>有标准答案的 → 确定性评估</li>
+      <li>没有标准答案的 → LLM-as-Judge（先用小样本跟人工评估校准）</li>
+      <li>上线后 → A/B 测试看业务指标</li>
+    </ul>
+  </div>
+
+  <div class="framework">
+    <h4>📋 第四步：建立评估流程</h4>
+    <pre># 推荐的评估流程
+1. 每次模型/prompt 变更前，在评估数据集上跑一遍 → 记录基线分数
+2. 变更后，再跑一遍 → 对比分数
+3. 如果分数下降 → 不发布
+4. 如果分数上升 or 持平 → 可以发布（但还要看业务指标）
+5. 每周/每月：用新数据更新评估数据集</pre>
+  </div>
+
+  <!-- Section 4: Practical Example -->
+  <h2>四、实战案例：评估一个客服 AI</h2>
+
+  <div class="eval-type" style="border-color:#d29922;">
+    <h4>🎯 场景</h4>
+    <p>你的产品是一个电商客服 AI，用户可以用自然语言问订单、退款、物流问题。你要评估这个 AI 的回答质量。</p>
+  </div>
+
+  <p><strong>评估数据集</strong>：收集 100 个真实用户问题，每个问题附上"理想答案"（由资深客服人工编写）。</p>
+
+  <p><strong>评估方法</strong>：</p>
+  <ol>
+    <li><strong>自动评估</strong>（每次变更都跑）：用 GPT-4 作为裁判，根据评分标准给 AI 的回答打分（1-5 分）</li>
+    <li><strong>人工评估</strong>（每周一次）：随机抽样 20 个回答，让人工评审员打分，跟 GPT-4 的打分对比，校准偏差</li>
+    <li><strong>业务指标</strong>（持续监控）：AI 对话的"解决率"（用户不需要转人工的比例）、平均对话轮次、用户满意度评分</li>
+  </ol>
+
+  <p><strong>通过标准</strong>：GPT-4 评分平均 ≥ 4.0 分，且人工评分与 GPT-4 评分的相关性 ≥ 0.8，且解决率不低于当前版本。</p>
+
+  <!-- Section 5: Common Mistakes -->
+  <h2>五、常见错误</h2>
+
+  <div class="tip" style="border-color:#d29922;">
+    <strong>❌ 错误 1：只用在线指标（如用户满意度）</strong><br>
+    在线指标是最终目标，但反馈周期太长（要等用户使用才知道）。你需要<strong>离线评估</strong>（每次变更前就能跑）来快速迭代。
+  </div>
+
+  <div class="tip" style="border-color:#d29922;">
+    <strong>❌ 错误 2：评估数据集不更新</strong><br>
+    用户行为会变化，新产品功能会带来新类型的问题。如果评估数据集一直不变，你会错过新的失败模式。
+  </div>
+
+  <div class="tip" style="border-color:#d29922;">
+    <strong>❌ 错误 3：评分标准太模糊</strong><br>
+    "要准确、要有帮助"——这没法评分。要具体："如果回答中包含了错误的物流单号，直接判为 0 分"。
+  </div>
+
+  <!-- Resources -->
+  <h2>六、推荐学习资源</h2>
+
+  <div class="original-link">
+    <a href="https://hamel.dev/notes/evals/01_evals.html" target="_blank">📖 hamel.dev：Evals 完全指南（英文）</a>
+    <p style="font-size:13px; color:#8b949e; margin-top:8px;">最实用的 AI Evals 教程，从原理到代码实现。强烈推荐。</p>
   </div>
 
   <div class="original-link">
-    <a href="https://www.productcompass.pm/" target="_blank">📚 前往原始资源 →</a>
-    <p style="font-size:13px; color:var(--text-secondary); margin-top:6px;">本页面完整版即将上线，欢迎关注 GitHub 仓库更新。</p>
+    <a href="https://www.productcompass.pm/p/ai-evals" target="_blank">📖 Paweł Huryn：AI Evals 指南（英文）</a>
+    <p style="font-size:13px; color:#8b949e; margin-top:8px;">专门给 PM 写的 Evals 指南，不需要技术背景。</p>
   </div>
 
-  <div style="margin-top:48px; padding-top:24px; border-top:1px solid var(--border); color:var(--text-secondary); font-size:13px; text-align:center;">
-    内容持续更新中 · <a href="../index.html" style="color:var(--accent);">返回首页</a>
+  <div class="original-link">
+    <a href="https://anthropic.com/research/evaluating-ai-systems" target="_blank">📖 Anthropic：评估 AI 系统（英文）</a>
+    <p style="font-size:13px; color:#8b949e; margin-top:8px;">Anthropic 关于 AI 评估的研究和最佳实践。</p>
+  </div>
+
+  <div style="margin-top:48px; padding-top:24px; border-top:1px solid #21262d; color:#8b949e; font-size:13px; text-align:center;">
+    内容持续更新中 · <a href="../index.html" style="color:#58a6ff;">返回首页</a> · 原创内容 by WorkBuddy
   </div>
 </body>
 </html>

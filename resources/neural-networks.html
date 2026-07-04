@@ -3,37 +3,193 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>神经网络与 LLM 基础 — AI PM 学习中心</title>
-  <link rel="stylesheet" href="../style.css">
+  <title>神经网络与 LLM 基础 — AI PM 技术直觉培养</title>
   <style>
-    body { max-width: 800px; margin: 0 auto; padding: 40px 24px; }
-    .back { color: var(--accent); text-decoration: none; font-size: 14px; display: inline-block; margin-bottom: 24px; }
-    .badge { font-size: 12px; padding: 4px 12px; border-radius: 20px; background: #1a2e1a; color: var(--green); border: 1px solid #238636; display: inline-block; margin-bottom: 16px; }
-    .coming { background: #161b22; border: 1px solid var(--border); border-radius: 12px; padding: 32px; text-align: center; margin: 32px 0; }
-    .coming h2 { color: var(--purple); font-size: 20px; margin-bottom: 12px; }
-    .coming p { color: var(--text-secondary); font-size: 15px; }
-    .original-link { background: #161b22; border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin: 20px 0; }
-    .original-link a { color: var(--accent); font-size: 15px; font-weight: 500; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0d1117; color: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; line-height: 1.8; max-width: 900px; margin: 0 auto; padding: 40px 24px; }
+    .back { color: #58a6ff; text-decoration: none; font-size: 14px; display: inline-block; margin-bottom: 20px; }
+    .back:hover { text-decoration: underline; }
+    .meta { font-size: 13px; color: #8b949e; margin-bottom: 32px; padding-bottom: 20px; border-bottom: 1px solid #21262d; }
+    .meta a { color: #58a6ff; }
+    h1 { font-size: 28px; font-weight: 700; color: #f0f6fc; margin-bottom: 8px; line-height: 1.3; }
+    h2 { font-size: 22px; font-weight: 600; color: #f0f6fc; margin-top: 40px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #21262d; }
+    h3 { font-size: 18px; font-weight: 600; color: #d2a8ff; margin-top: 28px; margin-bottom: 12px; }
+    p { margin-bottom: 16px; color: #c9d1d9; }
+    ul, ol { margin: 12px 0 16px 24px; color: #c9d1d9; }
+    li { margin-bottom: 8px; }
+    strong { color: #f0f6fc; }
+    .concept-box { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 20px; margin: 20px 0; }
+    .concept-box h4 { color: #3fb950; font-size: 16px; margin-bottom: 8px; }
+    .tip { background: #1a1a2e; border-left: 3px solid #58a6ff; padding: 16px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+    .tip strong { color: #58a6ff; }
+    .evolution { display: flex; gap: 12px; margin: 24px 0; flex-wrap: wrap; }
+    .evolution-step { flex: 1; min-width: 180px; background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px; }
+    .evolution-step h4 { font-size: 14px; color: #58a6ff; margin-bottom: 8px; }
+    .evolution-step p { font-size: 13px; color: #8b949e; margin-bottom: 0; }
+    .analogy { background: #1a1500; border: 1px solid #d29922; border-radius: 8px; padding: 20px; margin: 24px 0; }
+    .analogy h4 { color: #d29922; font-size: 15px; margin-bottom: 8px; }
+    .resource-link { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px; margin: 32px 0; }
+    .resource-link a { color: #58a6ff; font-weight: 500; }
+    code { background: #161b22; color: #ff7b72; padding: 2px 6px; border-radius: 4px; font-size: 14px; }
+    pre { background: #0d1117; border: 1px solid #30363d; border-radius: 6px; padding: 16px; overflow-x: auto; margin: 16px 0; font-size: 13px; line-height: 1.5; }
   </style>
 </head>
 <body>
   <a href="../index.html" class="back">← 返回学习中心</a>
-  <div class="badge">资源摘要页</div>
-  <h1 style="font-size:26px; font-weight:700; color:var(--text); margin-bottom:8px;">神经网络与 LLM 基础</h1>
-  <p style="color:var(--text-secondary); margin-bottom:32px;">3Blue1Brown 神经网络可视化 + Andrej Karpathy 讲座的中文学习笔记</p>
+  <div class="meta">AI PM 技术基础系列 · 面向产品经理的 AI 技术直觉培养 · 原创中文内容</div>
+  <h1>🧠 神经网络与 LLM 基础</h1>
+  <p style="color:#8b949e; font-size:15px; margin-bottom:32px;">给非技术背景 PM 的 AI 技术直觉指南 — 不需要数学公式，理解"它大概是怎么工作的"就够了</p>
 
-  <div class="coming">
-    <h2>🚧 内容制作中</h2>
-    <p>本页面正在翻译/整理中，暂时可以通过下方原始链接访问。</p>
+  <div class="tip">
+    <strong>💡 给 PM 的话</strong><br>
+    你不需要懂反向传播的数学推导，就像乔布斯不需要懂芯片电路设计一样。但你需要理解：神经网络能做什么、不能做什么、为什么 LLM 会"幻觉"、上下文窗口是什么——这些直接影响产品决策。
   </div>
 
-  <div class="original-link">
-    <a href="https://www.productcompass.pm/" target="_blank">📚 前往原始资源 →</a>
-    <p style="font-size:13px; color:var(--text-secondary); margin-top:6px;">本页面完整版即将上线，欢迎关注 GitHub 仓库更新。</p>
+  <!-- Section 1: Neural Networks -->
+  <h2>一、神经网络：AI 的"大脑"是怎么工作的？</h2>
+  <p>神经网络的设计灵感来自人脑。人脑有约 860 亿个神经元，每个神经元通过突触连接到数千个其他神经元。神经网络用软件模拟了这个结构。</p>
+
+  <div class="concept-box">
+    <h4>🔑 核心概念：神经元（Neuron）</h4>
+    <p>一个神经元做三件事：</p>
+    <ol>
+      <li>接收输入（比如一张图片的像素值）</li>
+      <li>对每个输入乘以一个"权重"（weight），加起来</li>
+      <li>通过"激活函数"决定是否"激活"（输出信号）</li>
+    </ol>
+    <p>成千上万个这样的神经元连接在一起，就形成了一个"网络"。</p>
   </div>
 
-  <div style="margin-top:48px; padding-top:24px; border-top:1px solid var(--border); color:var(--text-secondary); font-size:13px; text-align:center;">
-    内容持续更新中 · <a href="../index.html" style="color:var(--accent);">返回首页</a>
+  <div class="analogy">
+    <h4>🏠 类比：房价预测</h4>
+    <p>想象你在预测房价。影响房价的因素有：面积、地段、房龄、楼层。神经网络就像一个"超级回归模型"——它自动学习每个因素的权重。面积 100 平米很重要（+权重高），房龄 30 年可能扣分（−权重），但它比普通回归强大得多，因为它能捕捉<strong>非线性关系</strong>（比如地段好的房子，面积越大溢价越高，这不是简单的线性关系）。</p>
+  </div>
+
+  <h3>训练：神经网络是怎么"学习"的？</h3>
+  <p>训练过程就像教小孩认猫：</p>
+  <ol>
+    <li>给神经网络看一张图，它猜"这是狗"（猜错了）</li>
+    <li>告诉它"错了，这是猫"</li>
+    <li>神经网络调整内部权重，让下次更可能猜对</li>
+    <li>重复几万次，直到准确率足够高</li>
+  </ol>
+  <p>这个过程叫做<strong>反向传播（Backpropagation）</strong>——误差从输出层"反向"传回每一层，调整权重。你不需要懂数学，只需要理解：<strong>训练 = 用大量数据调整权重的过程</strong>。</p>
+
+  <!-- Section 2: Deep Learning -->
+  <h2>二、深度学习：更深的神经网络</h2>
+  <p>"深度"指的是神经网络的<strong>层数多</strong>。早期的神经网络只有 2-3 层，深度学习可以有几十甚至上百层。</p>
+
+  <div class="evolution">
+    <div class="evolution-step" style="border-color:#3fb950;">
+      <h4 style="color:#3fb950;">传统机器学习</h4>
+      <p>需要人工"特征工程"——人类告诉模型用什么特征（比如，预测房价要用面积、地段）</p>
+    </div>
+    <div class="evolution-step" style="border-color:#58a6ff;">
+      <h4 style="color:#58a6ff;">深度学习</h4>
+      <p>自动学习特征——模型自己发现"啊，这些像素组合起来是猫的耳朵"</p>
+    </div>
+    <div class="evolution-step" style="border-color:#d2a8ff;">
+      <h4 style="color:#d2a8ff;">大语言模型</h4>
+      <p>在海量文本上训练的超大规模深度学习模型，参数达千亿级别</p>
+    </div>
+  </div>
+
+  <p><strong>为什么"深度"有帮助？</strong> 深层网络可以学习<strong>层次化的特征</strong>：第一层识别边缘 → 第二层识别形状 → 第三层识别物体部件 → 第四层识别整个物体。就像你认人，先看轮廓，再看五官，最后认出是谁。</p>
+
+  <!-- Section 3: Transformer -->
+  <h2>三、Transformer：现代 AI 的"发动机"</h2>
+  <p>2017 年，Google 发表了论文《Attention is All You Need》，提出了 <strong>Transformer</strong> 架构。这是 ChatGPT 和所有现代 LLM 的基础。</p>
+
+  <div class="concept-box">
+    <h4>🔑 核心创新：注意力机制（Attention）</h4>
+    <p>传统模型处理句子是一个词一个词按顺序处理。Transformer 的突破是：<strong>可以同时关注句子中的所有词，并理解它们之间的关系</strong>。</p>
+    <p>比如："银行可以存钱，也可以借钱"——"银行"这个词和"存钱"、"借钱"都有关系。注意力机制让模型在处理"银行"时"注意"到这些相关词。</p>
+  </div>
+
+  <p><strong>为什么 Transformer 这么重要？</strong></p>
+  <ul>
+    <li>可以<strong>并行处理</strong>（不像循环神经网络 RNN 要一个词一个词来），训练速度快得多</li>
+    <li>可以处理<strong>很长的文本</strong>，理解远距离的词之间的关系</li>
+    <li>这就是 GPT（Generative Pre-trained Transformer）名字的由来</li>
+  </ul>
+
+  <!-- Section 4: How LLMs work -->
+  <h2>四、大语言模型（LLM）是怎么工作的？</h2>
+
+  <h3>训练阶段：预测下一个词</h3>
+  <p>LLM 的训练目标极其简单：<strong>给定前面的词，预测下一个词最可能是什么</strong>。就是这样。通过在海量文本（整个互联网）上做这个任务，模型"压缩"了人类的知识。</p>
+  <div class="tip">
+    <strong>💡 重要理解</strong>：LLM 本质上是一个<strong>超级强大的"下一个词预测器"</strong>。它并没有"理解"意思，但它预测下一个词的能力强到看起来像理解了。这就是为什么它会"幻觉"——它只是在预测下一个看起来合理的词，而不关心事实真假。
+  </div>
+
+  <h3>推理阶段：生成文本</h3>
+  <p>当你给 ChatGPT 发消息时：</p>
+  <ol>
+    <li>你的输入被"token 化"（切成词片段）</li>
+    <li>模型根据前面所有的 token，预测下一个最可能的 token</li>
+    <li>把预测的 token 加回去，再预测下一个</li>
+    <li>重复这个过程，直到生成完整回答</li>
+  </ol>
+  <p>这就是为什么 LLM 生成是<strong>逐词进行</strong>的，也是为什么它有时候会"跑偏"——一旦预测方向错了，后面就跟着错了。</p>
+
+  <!-- Section 5: Key Concepts for PMs -->
+  <h2>五、PM 必须理解的 7 个 LLM 概念</h2>
+
+  <div class="concept-box">
+    <h4>1. 上下文窗口（Context Window）</h4>
+    <p>模型一次能"看到"多少文本。就像你的工作记忆——超出这个范围的信息模型就"看不到"了。GPT-4o 是 128k tokens（约 10 万汉字），Claude 是 200k tokens。产品含义：如果你的应用需要参考很长的文档，要注意上下文窗口限制。</p>
+  </div>
+
+  <div class="concept-box">
+    <h4>2. Token</h4>
+    <p>文本被切分的基本单位。英文中大约 1 个词 = 1.3 tokens，中文大约 1 个汉字 = 1.5-2 tokens。你按 token 数量付费，所以<strong>上下文越长，成本越高</strong>。</p>
+  </div>
+
+  <div class="concept-box">
+    <h4>3. 温度（Temperature）</h4>
+    <p>控制输出的"随机性"。Temperature = 0 表示每次都选最可能的词（输出稳定但可能死板）；Temperature = 1 表示更随机（有创意但可能不靠谱）。产品含义：客服机器人用低温度，创意写作用高温度。</p>
+  </div>
+
+  <div class="concept-box">
+    <h4>4. 微调（Fine-tuning）</h4>
+    <p>在通用 LLM 的基础上，用你的专有数据继续训练，让它更擅长特定任务。比如，用你们公司的客服对话记录微调模型，让它更懂你们的业务。但不是所有场景都需要微调——提示工程往往够用了。</p>
+  </div>
+
+  <div class="concept-box">
+    <h4>5. 嵌入（Embedding）</h4>
+    <p>把文字转换成数字向量（一串数字），让计算机能计算文字之间的"相似度"。这是<strong>RAG 系统</strong>的基础——把文档转换成嵌入存起来，用户提问时把问题也转成嵌入，找最相似的文档片段。</p>
+  </div>
+
+  <div class="concept-box">
+    <h4>6. 幻觉（Hallucination）</h4>
+    <p>模型"自信地胡说八道"。因为它本质上是预测下一个词，而不是查询事实数据库。产品含义：<strong>不能把 LLM 的输出直接给用户当事实</strong>，必须有验证机制（比如让它引用来源）。</p>
+  </div>
+
+  <div class="concept-box">
+    <h4>7. 推理 / 思维链（Chain of Thought）</h4>
+    <p>让模型"一步一步思考"，可以大幅提升复杂问题的准确率。产品含义：如果你的功能需要模型做复杂推理，要在提示词里加"请一步一步思考"或开启"思考模式"（Claude 的思考功能）。</p>
+  </div>
+
+  <!-- Section 6: Learning Resources -->
+  <h2>六、推荐学习资源</h2>
+
+  <div class="resource-link">
+    <a href="https://www.youtube.com/playlist?list=PLZHQMeOKHQHTew1hRkN7Ox3xSPmNOp5yV" target="_blank">🎥 3Blue1Brown：神经网络可视化系列（强推）</a>
+    <p style="font-size:13px; color:#8b949e; margin-top:8px;">用精美的可视化解释神经网络、反向传播、注意力机制。没有任何数学门槛，是最好的直觉培养材料。</p>
+  </div>
+
+  <div class="resource-link">
+    <a href="https://karpathy.ai/zero-to-hero.html" target="_blank">🎥 Andrej Karpathy：Neural Networks: Zero to Hero</a>
+    <p style="font-size:13px; color:#8b949e; margin-top:8px;">前 OpenAI 首席科学家、Tesla AI 负责人 Karpathy 的免费课程，从零手写神经网络。有编程基础可以跟上。</p>
+  </div>
+
+  <div class="resource-link">
+    <a href="https://www.productcompass.pm/p/introduction-to-ai-product-management" target="_blank">📖 Paweł Huryn：AI PM 技术入门</a>
+    <p style="font-size:13px; color:#8b949e; margin-top:8px;">专门给 PM 写的 AI 技术入门，不讲数学公式，讲直觉。免费。</p>
+  </div>
+
+  <div style="margin-top:48px; padding-top:24px; border-top:1px solid #21262d; color:#8b949e; font-size:13px; text-align:center;">
+    内容持续更新中 · <a href="../index.html" style="color:#58a6ff;">返回首页</a> · 原创内容 by WorkBuddy
   </div>
 </body>
 </html>
