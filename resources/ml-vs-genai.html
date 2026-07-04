@@ -3,37 +3,131 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ML vs 深度学习 vs 生成式 AI — AI PM 学习中心</title>
-  <link rel="stylesheet" href="../style.css">
+  <title>机器学习 vs 生成式 AI：各有所长 — MIT Sloan 中文版</title>
   <style>
-    body { max-width: 800px; margin: 0 auto; padding: 40px 24px; }
-    .back { color: var(--accent); text-decoration: none; font-size: 14px; display: inline-block; margin-bottom: 24px; }
-    .badge { font-size: 12px; padding: 4px 12px; border-radius: 20px; background: #1a2e1a; color: var(--green); border: 1px solid #238636; display: inline-block; margin-bottom: 16px; }
-    .coming { background: #161b22; border: 1px solid var(--border); border-radius: 12px; padding: 32px; text-align: center; margin: 32px 0; }
-    .coming h2 { color: var(--purple); font-size: 20px; margin-bottom: 12px; }
-    .coming p { color: var(--text-secondary); font-size: 15px; }
-    .original-link { background: #161b22; border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin: 20px 0; }
-    .original-link a { color: var(--accent); font-size: 15px; font-weight: 500; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0d1117; color: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; line-height: 1.8; max-width: 900px; margin: 0 auto; padding: 40px 24px; }
+    .back { color: #58a6ff; text-decoration: none; font-size: 14px; display: inline-block; margin-bottom: 20px; }
+    .back:hover { text-decoration: underline; }
+    .meta { font-size: 13px; color: #8b949e; margin-bottom: 32px; padding-bottom: 20px; border-bottom: 1px solid #21262d; }
+    .meta a { color: #58a6ff; }
+    h1 { font-size: 28px; font-weight: 700; color: #f0f6fc; margin-bottom: 8px; line-height: 1.3; }
+    h2 { font-size: 22px; font-weight: 600; color: #f0f6fc; margin-top: 40px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #21262d; }
+    h3 { font-size: 18px; font-weight: 600; color: #d2a8ff; margin-top: 28px; margin-bottom: 12px; }
+    p { margin-bottom: 16px; color: #c9d1d9; }
+    ul, ol { margin: 12px 0 16px 24px; color: #c9d1d9; }
+    li { margin-bottom: 8px; }
+    strong { color: #f0f6fc; }
+    .highlight-box { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 20px; margin: 24px 0; }
+    .highlight-box.green { border-color: #238636; background: #0d1a12; }
+    .highlight-box.blue { border-color: #1f6feb; background: #0c1a2e; }
+    .highlight-box.yellow { border-color: #d29922; background: #1a1500; }
+    .tip { background: #1a1a2e; border-left: 3px solid #58a6ff; padding: 16px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+    .tip strong { color: #58a6ff; }
+    .decision-frame { background: #0c1a2e; border: 2px solid #1f6feb; border-radius: 12px; padding: 24px; margin: 28px 0; }
+    .decision-frame h3 { color: #58a6ff; margin-top: 0; }
+    .original-link { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px; margin: 32px 0; }
+    .original-link a { color: #58a6ff; font-weight: 500; }
+    .quote { background: #161b22; border-left: 3px solid #d2a8ff; padding: 16px; margin: 20px 0; font-style: italic; color: #c9d1d9; border-radius: 0 8px 8px 0; }
+    .expert { font-size: 13px; color: #8b949e; margin-top: 8px; font-style: normal; }
   </style>
 </head>
 <body>
   <a href="../index.html" class="back">← 返回学习中心</a>
-  <div class="badge">资源摘要页</div>
-  <h1 style="font-size:26px; font-weight:700; color:var(--text); margin-bottom:8px;">ML vs 深度学习 vs 生成式 AI</h1>
-  <p style="color:var(--text-secondary); margin-bottom:32px;">MIT Sloan 文章摘要：如何判断该用哪种技术</p>
+  <div class="meta">原文：<a href="https://mitsloan.mit.edu/ideas-made-to-matter/machine-learning-and-generative-ai-what-are-they-good-for" target="_blank">MIT Sloan Review</a> · 发布于 2025年6月2日 · 作者：Sara Brown · 翻译 by WorkBuddy</div>
+  <h1>🧠 机器学习 vs 生成式 AI：各有所长</h1>
+  <p style="color:#8b949e; font-size:15px; margin-bottom:32px;">MIT Sloan 官方指南中文版 — 帮你判断何时该用哪种 AI 技术</p>
 
-  <div class="coming">
-    <h2>🚧 内容制作中</h2>
-    <p>本页面正在翻译/整理中，暂时可以通过下方原始链接访问。</p>
+  <div class="highlight-box blue">
+    <strong>📌 本文解决的核心问题</strong>
+    <p style="margin-top:12px;">生成式 AI 很火，但它不是万能的。<strong>什么时候该用生成式 AI？什么时候传统机器学习更好？什么时候两者结合？</strong>这篇文章给你明确答案。</p>
+  </div>
+
+  <!-- Section 1: What is ML -->
+  <h2>一、什么是机器学习？</h2>
+  <p><strong>机器学习</strong>是一种人工智能，使计算机能够<strong>在没有被明确编程的情况下学习</strong>。传统计算需要人创建程序给机器详细指令，而机器学习程序可以从示例中学习。</p>
+  <p>机器学习的用途非常广泛：从预测客户行为、评估银行交易中的潜在欺诈，到在购物网站上创建定制化搜索结果。</p>
+  <div class="quote">
+    "机器学习的基本思想是：收集数据比收集理解要容易得多。"—— Rama Ramakrishnan，MIT Sloan 教授
+    <div class="expert">举例：给机器学习程序输入数千张动物照片，告诉它哪些是猫、哪些是狗，比试图教会程序所有区分猫狗的复杂方法要容易得多。</div>
+  </div>
+  <p>机器学习"做出的决策能够<strong>归纳出我们原本无法发现的模式</strong>"，Gupta 教授说。"它的好坏取决于我们拥有的数据和模型。"</p>
+  <p>因此，机器学习最适合<strong>有大量数据的场景</strong>——成千上万甚至数百万个样本，比如客户对话记录、机器传感器日志或 ATM 交易数据。</p>
+
+  <!-- Section 2: What is GenAI -->
+  <h2>二、什么是生成式 AI？</h2>
+  <p><strong>生成式 AI</strong>是一种较新的机器学习类型，可以<strong>基于大型数据集创建新内容</strong>——包括文本、图像或视频。<strong>大语言模型（LLM）</strong>是生成式 AI 的主要类型。</p>
+  <p>生成式 AI 的标志性产品 ChatGPT 于 2022 年由 OpenAI 发布，迅速走红——因为它能够很好地响应用户用普通语言写的提示，然后快速生成新内容。</p>
+  <div class="quote">
+    "机器学习捕捉我们已有数据中的复杂相关性和模式。生成式 AI 走得更远。经过微调的专用生成式 AI 模型可以识别传统数据集内机器学习无法识别的关系。这就是优势所在。"—— Swati Gupta，MIT Sloan 副教授
+  </div>
+  <p>生成式 AI 不是做预测或识别模式，而是<strong>创造新内容</strong>——它可以回答问题、撰写邮件、头脑风暴创意等。"现在 GPT 模型的用例太多了，"Gupta 说。"你看很多公司试图找到在自身框架内使用它们的方式，无论是转写呼叫中心通话、浏览政策文档，还是帮助新员工学习公司的现有软件代码。"</p>
+
+  <!-- Section 3: Best use cases for GenAI -->
+  <h2>三、生成式 AI 的最佳应用场景</h2>
+  <p>除了主要功能（生成新内容）之外，生成式 AI 正在接管传统机器学习历来执行的任务。适合使用生成式 AI 的情况包括：</p>
+
+  <h3>✅ 场景一：处理日常语言或常见图像</h3>
+  <p>LLM 已经在大量文本或图像上训练过，可以"开箱即用"地用于分类和检测。例如，公司可能想分析在线产品评论以识别用户报告的产品缺陷。这曾经意味着构建一个专门训练的机器学习模型——一个需要精力、时间和金钱的过程。今天，公司可以将产品评论输入 LLM，询问数据集中是否包含产品改进见解。</p>
+  <div class="highlight-box green">
+    GPT-4 和类似模型<strong>"可能比定制构建的机器学习模型更准确，而且你可以更快地将应用启动并运行。"</strong>
+  </div>
+
+  <h3>✅ 场景二：想要一个更易用的选项</h3>
+  <p>使用生成式 AI 模型是许多软件工程师不需要大量额外培训就能做到的，而构建机器学习模型需要技术专长。生成式 AI"在某种意义上是一种<strong>民主化力量</strong>。它让更多人可以使用 AI，"Ramakrishnan 说。</p>
+  <div class="tip">
+    <strong>💡 Ramakrishnan 的建议</strong>：如果问题或机会是基于使用日常信息的，<strong>"先试生成式 AI。不要像以前那样条件反射地回到机器学习。"</strong>
+  </div>
+
+  <!-- Section 4: When ML is better -->
+  <h2>四、传统机器学习更好的场景</h2>
+
+  <h3>⚠️ 场景一：有隐私顾虑</h3>
+  <p>将专有、敏感或机密信息输入 LLM 时必须谨慎，因为存在数据泄露的可能性。虽然可以构建自己的私有模型，但这需要专业的技术技能，你的组织可能不容易具备。</p>
+
+  <h3>⚠️ 场景二：使用高度特定的领域知识</h3>
+  <p>LLM 在广泛可用的数据上训练，适合处理日常信息。但对于高度技术性或小众任务，比如基于 MRI 图像进行医疗诊断，它们可能不那么准确。"如果你在处理需要大量技术知识的领域特定问题，涉及大量专业术语，而且你处理的问题非常特定于你的公司或组织……你可能想要走传统[机器学习]路线，"Ramakrishnan 说。</p>
+
+  <h3>⚠️ 场景三：已经有一个机器学习模型</h3>
+  <p>组织已经投入大量精力为特定应用构建机器学习程序，比如识别信用卡交易中的潜在欺诈。"可能没有必要急于把它们拆掉，试图用生成式 AI 系统替换它们，"Ramakrishnan 说。"问题是，<strong>什么是新用例、新东西？这才是决策点真正出现的地方。</strong>"</p>
+
+  <!-- Section 5: Use together -->
+  <h2>五、何时将机器学习和生成式 AI 结合使用</h2>
+  <p>在几种情况下，机器学习和生成式 AI 可以结合使用以获得更好结果：</p>
+  <ul>
+    <li><strong>增强机器学习模型</strong>：用生成式 AI 为模型提供更多世界背景信息，使其表现更好</li>
+    <li><strong>轻松设计机器学习模型</strong>：将数据和技术说明输入生成式 AI 工具，让它构建模型、在其他数据集上评估、报告准确性</li>
+    <li><strong>为机器学习模型生成数据</strong>：当没有足够数据训练传统模型时，生成式 AI 可以创建具有相同统计属性的<strong>合成数据</strong></li>
+    <li><strong>为机器学习模型准备结构化数据</strong>：将包含错误（如缺失值）的表格数据上传到 LLM，让它查找异常或错误，而不需要手动清理</li>
+  </ul>
+  <div class="quote">
+    "生成式 AI 使传统机器学习工作流更高效，从数据获取到数据清理再到实际建模的每一步都是如此。在流程的每一步，你都可以使用生成式 AI 作为某种<strong>涡轮增压器</strong>。但这<strong>不是免费午餐</strong>。你付出的代价是需要不断警惕，确保 LLM 生成的输出是准确的。"—— Rama Ramakrishnan
+  </div>
+
+  <!-- Section 6: Decision framework -->
+  <h2>六、决策框架：一句话总结</h2>
+  <div class="decision-frame">
+    <h3>🎯 Ramakrishnan 的核心结论</h3>
+    <p style="color:#c9d1d9; margin-bottom:16px;">"如果你想要<strong>生成东西</strong>，用生成式 AI。如果你想要<strong>预测东西</strong>——但预测日常的东西，先试生成式 AI。如果你想要预测<strong>领域特定的东西</strong>，做预测类工作，[用]传统[机器学习]。<strong>就是这么简单。</strong>"</p>
+    <div style="background:#0d1117; border:1px solid #21262d; border-radius:8px; padding:16px; margin-top:16px;">
+      <p style="color:#8b949e; font-size:14px; margin-bottom:4px;"><strong>决策速查表</strong></p>
+      <ul style="font-size:14px; color:#c9d1d9;">
+        <li>生成文本/图像/代码 → <span style="color:#3fb950;">生成式 AI</span></li>
+        <li>预测日常事物（如情感分析）→ <span style="color:#3fb950;">先试生成式 AI</span></li>
+        <li>预测专业领域（如医疗诊断）→ <span style="color:#d29922;">传统机器学习</span></li>
+        <li>数据隐私敏感 → <span style="color:#d29922;">传统机器学习（私有部署）</span></li>
+        <li>已有成熟 ML 模型 → <span style="color:#d29922;">保留，新用例再考虑 GenAI</span></li>
+      </ul>
+    </div>
   </div>
 
   <div class="original-link">
-    <a href="https://www.productcompass.pm/" target="_blank">📚 前往原始资源 →</a>
-    <p style="font-size:13px; color:var(--text-secondary); margin-top:6px;">本页面完整版即将上线，欢迎关注 GitHub 仓库更新。</p>
+    <a href="https://mitsloan.mit.edu/ideas-made-to-matter/machine-learning-and-generative-ai-what-are-they-good-for" target="_blank">📖 阅读英文原文 → MIT Sloan Review</a>
+    <p style="font-size:13px; color:#8b949e; margin-top:8px;">本文基于 MIT Sloan 官方网站文章翻译，版权归 MIT Sloan 所有。</p>
   </div>
 
-  <div style="margin-top:48px; padding-top:24px; border-top:1px solid var(--border); color:var(--text-secondary); font-size:13px; text-align:center;">
-    内容持续更新中 · <a href="../index.html" style="color:var(--accent);">返回首页</a>
+  <div style="margin-top:48px; padding-top:24px; border-top:1px solid #21262d; color:#8b949e; font-size:13px; text-align:center;">
+    内容持续更新中 · <a href="../index.html" style="color:#58a6ff;">返回首页</a> · 翻译 by WorkBuddy
   </div>
 </body>
 </html>

@@ -3,81 +3,226 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>提示工程 / 上下文工程 — AI PM 学习中心</title>
-  <link rel="stylesheet" href="../style.css">
+  <title>提示工程完全指南 — Anthropic 官方最佳实践中文版</title>
   <style>
-    .back { color: var(--accent); text-decoration: none; font-size:14px; display:inline-block; margin-bottom:24px; }
-    .badge { font-size:12px; padding:4px 12px; border-radius:20px; background:#1a2e1a; color:var(--green); border:1px solid #238636; display:inline-block; margin-bottom:16px; }
-    .original-link { background:#161b22; border:1px solid var(--border); border-radius:8px; padding:16px; margin:20px 0; }
-    .original-link a { color:var(--accent); font-size:15px; font-weight:500; }
-    .original-link p { font-size:13px; color:var(--text-secondary); margin-top:6px; }
-    .section { margin:32px 0; }
-    .section h2 { font-size:18px; font-weight:600; color:var(--purple); margin-bottom:12px; padding-left:12px; border-left:3px solid var(--purple); }
-    .tip { background:#1a1f2e; border:1px solid #30363d; border-radius:8px; padding:16px; margin:16px 0; font-size:14px; line-height:1.7; }
-    .tip strong { color:#ffa657; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0d1117; color: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; line-height: 1.8; max-width: 900px; margin: 0 auto; padding: 40px 24px; }
+    .back { color: #58a6ff; text-decoration: none; font-size: 14px; display: inline-block; margin-bottom: 20px; }
+    .back:hover { text-decoration: underline; }
+    .meta { font-size: 13px; color: #8b949e; margin-bottom: 32px; padding-bottom: 20px; border-bottom: 1px solid #21262d; }
+    .meta a { color: #58a6ff; }
+    h1 { font-size: 28px; font-weight: 700; color: #f0f6fc; margin-bottom: 8px; line-height: 1.3; }
+    h2 { font-size: 22px; font-weight: 600; color: #f0f6fc; margin-top: 40px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #21262d; }
+    h3 { font-size: 18px; font-weight: 600; color: #d2a8ff; margin-top: 28px; margin-bottom: 12px; }
+    p { margin-bottom: 16px; color: #c9d1d9; }
+    ul, ol { margin: 12px 0 16px 24px; color: #c9d1d9; }
+    li { margin-bottom: 8px; }
+    strong { color: #f0f6fc; }
+    .tip { background: #1a1a2e; border-left: 3px solid #58a6ff; padding: 16px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+    .tip strong { color: #58a6ff; }
+    .technique { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 20px; margin: 20px 0; }
+    .technique h4 { color: #3fb950; font-size: 16px; margin-bottom: 8px; }
+    .technique .tag { font-size: 11px; background: #1a2e1a; color: #3fb950; border: 1px solid #238636; padding: 2px 8px; border-radius: 12px; display: inline-block; margin-bottom: 8px; }
+    pre { background: #0d1117; border: 1px solid #30363d; border-radius: 6px; padding: 16px; overflow-x: auto; margin: 16px 0; font-size: 13px; line-height: 1.5; }
+    code { font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace; color: #ff7b72; }
+    .prompt-box { background: #0d1117; border: 1px solid #30363d; border-radius: 8px; padding: 16px; margin: 16px 0; font-size: 14px; color: #c9d1d9; font-family: 'SF Mono', Monaco, monospace; white-space: pre-wrap; }
+    .golden-rule { background: #1a1500; border: 2px solid #d29922; border-radius: 8px; padding: 20px; margin: 24px 0; }
+    .golden-rule strong { color: #d29922; }
+    .original-link { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px; margin: 32px 0; }
+    .original-link a { color: #58a6ff; font-weight: 500; }
   </style>
 </head>
-<body style="max-width:800px; margin:0 auto; padding:40px 24px;">
-
+<body>
   <a href="../index.html" class="back">← 返回学习中心</a>
-  <div class="badge">资源摘要页</div>
-  <h1 style="font-size:26px; font-weight:700; color:var(--text); margin-bottom:8px;">提示工程 / 上下文工程</h1>
-  <p style="color:var(--text-secondary); margin-bottom:32px;">AI PM 日常最核心的技能之一。以下是免费权威资源的中文精要。</p>
+  <div class="meta">来源：<a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/claude-prompting-best-practices" target="_blank">Anthropic 官方文档</a> · 适用于 Claude 最新模型 · 翻译 by WorkBuddy</div>
+  <h1>✍️ 提示工程完全指南</h1>
+  <p style="color:#8b949e; font-size:15px; margin-bottom:32px;">Anthropic 官方最佳实践中文版 — 给 PM 和开发者的实用提示词技巧</p>
+
+  <div class="golden-rule">
+    <strong>🏆 黄金法则（必读）</strong>
+    <p style="margin-top:12px; color:#c9d1d9;">"把你的提示词展示给一位对任务了解有限的同事，请他们按照提示词操作。<strong>如果他们会感到困惑，Claude 也会如此。</strong>"</p>
+    <p style="margin-top:8px; color:#8b949e; font-size:14px;">把 Claude 当作一位聪明但缺乏经验的新员工——它不了解你的规范和工作流程。你越精确地解释你想要什么，结果就越好。</p>
+  </div>
+
+  <!-- Section 1: General Principles -->
+  <h2>一、通用原则（适用于所有 Claude 模型）</h2>
+
+  <div class="technique">
+    <span class="tag">基础技巧</span>
+    <h4>1. 清晰直接地表达</h4>
+    <p>Claude 对清晰、明确的指令响应良好。明确说明你期望的输出有助于提升结果质量。</p>
+    <ul>
+      <li>明确说明期望的输出格式和约束条件</li>
+      <li>当步骤顺序很重要时，使用编号列表提供指令</li>
+      <li>避免让 Claude 从模糊提示中推断你的意图</li>
+    </ul>
+  </div>
+
+  <div class="technique">
+    <span class="tag">基础技巧</span>
+    <h4>2. 添加上下文以提升性能</h4>
+    <p>在指令背后提供上下文或动机（比如解释为什么某种行为很重要），可以帮助 Claude 更好地理解你的目标并提供更有针对性的响应。</p>
+    <div class="prompt-box">你是一位有 10 年经验的产品经理，正在为一款面向中老年用户的健康 App 写功能说明。请用简单易懂的语言解释「心率监测」功能，避免专业术语。</div>
+  </div>
+
+  <div class="technique">
+    <span class="tag">核心技巧</span>
+    <h4>3. 有效使用示例（Few-shot Prompting）</h4>
+    <p>示例是引导 Claude 输出格式、语气和结构的最可靠方法之一。包含 3-5 个示例可获得最佳效果。</p>
+    <ul>
+      <li><strong>相关性</strong>：尽可能贴近实际使用场景</li>
+      <li><strong>多样性</strong>：覆盖边缘情况</li>
+      <li><strong>结构化</strong>：将示例包裹在 <code>&lt;example&gt;</code> 标签中</li>
+    </ul>
+  </div>
+
+  <div class="technique">
+    <span class="tag">核心技巧</span>
+    <h4>4. 使用 XML 标签结构化提示词</h4>
+    <p>XML 标签帮助 Claude 清晰解析复杂提示词，特别是当提示词混合了指令、上下文、示例和可变输入时。</p>
+    <div class="prompt-box">&lt;instructions&gt;
+  你是一个客服助手。根据用户问题提供有帮助的回答。
+&lt;/instructions&gt;
+
+&lt;context&gt;
+  我们的退款政策是：收到商品后 30 天内可申请退款。
+&lt;/context&gt;
+
+&lt;input&gt;
+  用户问题：我上周买的东西可以退货吗？
+&lt;/input&gt;</div>
+  </div>
+
+  <div class="technique">
+    <span class="tag">进阶技巧</span>
+    <h4>5. 给 Claude 一个角色</h4>
+    <p>在系统提示词中设置角色可以使 Claude 的行为和语气聚焦于你的使用场景。即使是一句话也能产生差异。</p>
+    <div class="prompt-box">system: "你是一位专业的产品策略顾问，擅长用数据和用户洞察来支持产品决策。"</div>
+  </div>
+
+  <!-- Section 2: Output Control -->
+  <h2>二、控制输出格式</h2>
+  <p>有几种特别有效的方法来引导输出格式：</p>
+
+  <div class="technique">
+    <h4>✅ 方法一：告诉 Claude 要做什么，而不是不要做什么</h4>
+    <p>不要用否定式指令，用正面指令：</p>
+    <ul>
+      <li>❌ "Do not use markdown in your response"</li>
+      <li>✅ "Your response should be composed of smoothly flowing prose paragraphs."</li>
+    </ul>
+  </div>
+
+  <div class="technique">
+    <h4>✅ 方法二：使用 XML 格式指示符</h4>
+    <div class="prompt-box">把你的回复写在 &lt;smoothly_flowing_prose_paragraphs&gt; 标签中。</div>
+  </div>
+
+  <div class="technique">
+    <h4>✅ 方法三：使提示词风格与期望输出相匹配</h4>
+    <p>你提示词中使用的格式风格可能影响 Claude 的响应风格。如果你想减少输出中的 markdown，试着从提示词中删除 markdown。</p>
+  </div>
+
+  <!-- Section 3: Thinking -->
+  <h2>三、利用思考（Thinking）能力</h2>
+  <p>Claude 最新模型提供<strong>思考能力</strong>（Thinking/Reasoning），对于涉及工具使用后的反思或复杂多步推理任务特别有帮助。</p>
+
+  <div class="tip">
+    <strong>💡 什么是思考（Thinking）？</strong><br>
+    思考是 Claude 在回答之前进行的内部推理过程。就像你在回答难题前先在脑子里想一遍。你可以看到 Claude 的思考过程（在 API 中通过 <code>thinking</code> 参数开启）。
+  </div>
+
+  <p><strong>如何引导 Claude 的思考行为：</strong></p>
+  <ul>
+    <li>在收到工具结果后，要求 Claude "仔细反思其质量，然后确定最佳下一步"</li>
+    <li>使用自适应思考（<code>thinking: {type: "adaptive"}</code>），Claude 会根据查询复杂度自动决定思考多少</li>
+    <li>要求 Claude 自我检查："在结束之前，根据 [测试标准] 验证你的答案"</li>
+  </ul>
+
+  <!-- Section 4: Agent Systems -->
+  <h2>四、智能体系统提示技巧</h2>
+
+  <div class="technique">
+    <h4>🤖 长时间推理和状态追踪</h4>
+    <p>Claude 处理长时间推理任务时具有强大的状态追踪能力。关键技巧：</p>
+    <ul>
+      <li>要求 Claude 在继续之前将进度保存到文件</li>
+      <li>使用结构化格式（如 <code>tests.json</code>）跟踪测试结果</li>
+      <li>使用 git 进行状态追踪——Claude 在使用 git 跨多个会话追踪状态方面表现出色</li>
+    </ul>
+  </div>
+
+  <div class="technique">
+    <h4>🤖 平衡自主性和安全性</h4>
+    <p>如果没有指导，Claude 可能会采取难以逆转的操作（删除文件、强制推送等）。添加安全指导：</p>
+    <div class="prompt-box">&lt;safety_guidelines&gt;
+  对于难以逆转的操作（删除文件、git push --force、影响共享系统的操作），
+  在执行前先询问用户确认。
+&lt;/safety_guidelines&gt;</div>
+  </div>
+
+  <div class="technique">
+    <h4>🤖 避免过度工程化</h4>
+    <p>Claude Opus 4.5+ 倾向于过度工程化。添加指导保持解决方案简单：</p>
+    <div class="prompt-box">&lt;minimize_over_engineering&gt;
+  - 范围：不要添加未被请求的功能或"改进"
+  - 文档：不要为你未更改的代码添加注释
+  - 抽象：不要为一次性操作创建辅助函数
+  - 防御性编程：不要为不可能发生的场景添加错误处理
+&lt;/minimize_over_engineering&gt;</div>
+  </div>
+
+  <!-- Section 5: Practical Examples for PMs -->
+  <h2>五、PM 常用提示词模板</h2>
+
+  <div class="technique">
+    <h4>📋 模板一：需求分析</h4>
+    <div class="prompt-box">你是一位资深产品经理。请分析以下用户反馈，提取核心需求，
+按优先级排序，并给出产品建议。
+
+用户反馈：
+[粘贴用户反馈 here]
+
+输出格式：
+1. 核心需求（按优先级）
+2. 每个需求的影响范围和频率
+3. 推荐的产品方案
+4. 优先级排序理由</div>
+  </div>
+
+  <div class="technique">
+    <h4>📋 模板二：竞品分析</h4>
+    <div class="prompt-box">你是一位产品战略顾问。请对以下产品进行竞品分析。
+
+产品 A：[产品名] - [核心功能]
+产品 B：[产品名] - [核心功能]
+
+请从以下维度分析：
+- 目标用户差异
+- 核心功能差异
+- 用户体验差异
+- 商业模式差异
+- 各自的竞争优势</div>
+  </div>
+
+  <div class="technique">
+    <h4>📋 模板三：AI 功能设计</h4>
+    <div class="prompt-box">你正在为 [产品名] 设计一个 AI 功能：[功能描述]
+
+请帮助我思考：
+1. 这个功能是应该用机器学习、深度学习还是生成式 AI？为什么？
+2. 用户价值是什么？能不能用更简单的方法实现？
+3. 成功指标应该怎么定义？
+4. 有哪些风险和边界情况需要考虑？</div>
+  </div>
 
   <div class="original-link">
-    <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview" target="_blank">📚 Anthropic 官方提示工程文档 →</a>
-    <p>最权威的提示工程指南，Claude 团队出品，持续更新。</p>
+    <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/claude-prompting-best-practices" target="_blank">📖 阅读英文原文 → Anthropic 官方文档</a>
+    <p style="font-size:13px; color:#8b949e; margin-top:8px;">本文基于 Anthropic 官方文档翻译整理，版权归 Anthropic 所有。建议结合原文使用。</p>
   </div>
 
-  <div class="section">
-    <h2>什么是提示工程？</h2>
-    <p>提示工程（Prompt Engineering）是设计与大语言模型交互的输入文本，以获得期望输出的过程。对 AI PM 来说，不需要成为提示工程专家，但需要理解：</p>
-    <ul style="margin:12px 0 12px 24px; font-size:15px; line-height:1.8;">
-      <li>如何写出清晰、无歧义的指令</li>
-      <li>如何通过示例（few-shot）提升输出质量</li>
-      <li>如何让模型"一步步思考"（思维链 Chain-of-Thought）</li>
-      <li>如何利用 XML 标签结构化输入输出</li>
-    </ul>
+  <div style="margin-top:48px; padding-top:24px; border-top:1px solid #21262d; color:#8b949e; font-size:13px; text-align:center;">
+    内容持续更新中 · <a href="../index.html" style="color:#58a6ff;">返回首页</a> · 翻译 by WorkBuddy
   </div>
-
-  <div class="section">
-    <h2>上下文工程（Context Engineering）</h2>
-    <p>比提示工程更广义的概念。上下文工程是指：为每次模型调用提供正确上下文的所有工作，包括：</p>
-    <ul style="margin:12px 0 12px 24px; font-size:15px; line-height:1.8;">
-      <li>系统提示词（System Prompt）设计</li>
-      <li>对话历史管理（何时保留、何时截断）</li>
-      <li>RAG 系统中的检索结果注入</li>
-      <li>工具调用结果的处理与呈现</li>
-    </ul>
-    <div class="tip">
-      💡 <strong>PM 视角：</strong>上下文工程比提示工程更值得 AI PM 关注。因为产品中的 AI 表现，80% 取决于上下文的质量，而不是某个具体提示词的措辞。
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>免费学习资源</h2>
-    <div class="original-link">
-      <a href="https://github.com/anthropics/prompt-eng-interactive-tutorial" target="_blank">🎓 Anthropic 交互式提示工程教程（GitHub）→</a>
-      <p>带示例的互动教程，覆盖文档中所有提示技术。</p>
-    </div>
-    <div class="original-link">
-      <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/claude-prompting-best-practices" target="_blank">📋 Claude 提示最佳实践 →</a>
-      <p>针对 Claude 最新模型的调优指南。</p>
-    </div>
-    <div class="original-link">
-      <a href="https://cookbook.openai.com/examples/gpt4-1_prompting_guide" target="_blank">📋 OpenAI GPT-4.1 提示指南 →</a>
-      <p>聚焦智能体能力的提示工程指导。</p>
-    </div>
-  </div>
-
-  <div class="original-link" style="margin-top:40px;">
-    <a href="https://www.productcompass.pm/p/prompting-techniques" target="_blank">📖 Paweł Huryn：14 个 PM 应该知道的提示技术（原文，付费）→</a>
-    <p>如需访问完整版，需订阅 The Product Compass。</p>
-  </div>
-
-  <div style="margin-top:48px; padding-top:24px; border-top:1px solid var(--border); color:var(--text-secondary); font-size:13px; text-align:center;">
-    本文为资源摘要页，内容持续更新 · <a href="../index.html" style="color:var(--accent);">返回首页</a>
-  </div>
-
 </body>
 </html>
